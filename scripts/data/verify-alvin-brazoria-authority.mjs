@@ -51,10 +51,125 @@ check('Brazoria verified civic snapshot', source.county.includes('population2025
 check('Direct office provenance and expiry', (localGovernment.match(/directVerifiedAt: '\d{4}-\d{2}-\d{2}'/g) ?? []).length >= 2 && countySection.includes('directAppraisalCurrent') && countySection.includes('directTaxCurrent'), 'Independent source dates, not fabricated Comptroller dates');
 check('Brazoria current appraisal name and direct service links', ['Brazoria Central Appraisal District','https://esearch.brazoriacad.org/','https://brazoriacad.org/property-tax-exemption-forms/','https://brazoriacad.org/how-to-efile-a-protest/','https://tax.brazoriacountytx.gov/'].every(s => countySection.includes(s)), 'Official first-party resources');
 if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+  try {
+    const response = await fetch('https://texasdefined.com/api/property-tax-rates?county=brazoria', { signal: AbortSignal.timeout(25000) });
+    const body = await response.json();
+    const summary = body?.summary;
+    const groups = ['county','cities','schoolDistricts','specialDistricts'];
+    const valid = response.ok && body.ready === true && Number.isInteger(summary?.year) && groups.every(group => Array.isArray(summary?.[group]) && summary[group].length > 0 && summary[group].every(record => typeof record.name === 'string' && record.name.trim() && typeof record.slug === 'string' && record.slug.trim() && !record.slug.includes(' drift is reported, not silently restamped.
+  const civicSources = [
+    ['https://bcsummerpassport.org/sites/', ['Alvin Historical Museum', 'Admission: $5, 12 and under free']],
+    ['https://www.alvin.gov/482/Park-Rules', ['6:30 a.m. to 10:30 p.m.', 'designated parking areas', 'No overnight parking']],
+    ['https://www.alvin.gov/Facilities/Facility/Details/National-Oak-Park-8', ['118 S Magnolia', 'Parking', 'Picnic Tables', 'Playground']],
+    ['https://www.alvin.gov/Facilities/Facility/Details/Historic-Depot-Centre-and-Tom-Blakeney-J-1', ['200 Depot Centre Boulevard', '1907', '281-388-4299']],
+    ['https://alvinmuseum.org/', ['300 West Sealy', '281-331-4469', '11am-3pm', 'appointment']],
+    ['https://www.census.gov/quickfacts/alvincitytexas', ['30,115','27,098','July 1, 2025']],
+    ['https://www.census.gov/quickfacts/fact/table/brazoriacountytexas/PST045225', ['419,080','372,031']],
+    ['https://brazoriacad.org/contact-us/', ['849-7792','help@brazoriacad.org','500 N Chenango St','Marcel Pierel III']],
+    ['https://brazoriacad.org/administration/', ['Marcel Pierel']],
+    ['https://tigerweb.geo.census.gov/tigerwebmain/Files/bas26/tigerweb_bas26_county_2020_tab20_tx.html', ['48039','Brazoria County','3530984446','635433878','29.1678175','95.4346470']],
+    ['https://brazoriacad.org/welcome-to-brazoria-central-appraisal-district/', ['Brazoria Central Appraisal District','January 1, 2026']],
+    ['https://tax.brazoriacountytx.gov/contact-en-us', ['BULANEK','864-1320','237 E. Locust St.']],
+    ['https://esearch.brazoriacad.org/', ['Property Search']],
+    ['https://brazoriacad.org/property-tax-exemption-forms/', ['Exemption']],
+    ['https://brazoriacad.org/how-to-efile-a-protest/', ['Protest']],
+  ];
+  await Promise.all(civicSources.map(async ([url, markers]) => {
+    try {
+      const response = await fetch(url, { signal: AbortSignal.timeout(25000), headers: {'user-agent':'TexasDefined scheduled source integrity check/1.0'} });
+      const visible = normalize((await response.text()).replace(/<[^>]*>/g, ' ')).toLowerCase();
+      check('Brazoria civic source ' + url, response.ok && markers.every(marker=>visible.includes(marker.toLowerCase())), 'HTTP ' + response.status + '; source claims must be reviewed if changed');
+    } catch (error) { check('Brazoria civic source ' + url, false, String(error)); }
+  }));
+  targets.push({
+    path: '/destination/alvin-historical-museum',
+    phrases: ['Nolan Ryan', 'Loren Mozley', 'Emigrants at Nightfall', 'Slover'],
+    links: ['/city/alvin', '/county/brazoria', '/texas-icons/nolan-ryan'],
+    schema: 'Museum',
+  });
+}
+for (const target of targets) {
+  const url = 'https://texasdefined.com' + target.path;
+  try {
+    const response = await fetch(url + '?alvin-authority=' + (process.env.GITHUB_SHA?.slice(0,12) ?? 'manual'), {
+      headers: { 'user-agent': 'TexasDefined scheduled source integrity check/1.0', 'cache-control': 'no-cache' },
+      signal: AbortSignal.timeout(25000),
+    });
+    const html = await response.text();
+    const visible = normalize(html.replace(/<(script|style|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, ' ').replace(/<[^>]*>/g, ' '));
+    check(url + ' HTTP', response.ok, 'HTTP ' + response.status);
+    check(url + ' canonical', [...html.matchAll(/<link\b[^>]*>/gi)].some(([tag]) => /\brel=["']canonical["']/i.test(tag) && tag.match(/\bhref=["']([^"']+)["']/i)?.[1] === url), 'Self canonical');
+    check(url + ' indexable', !/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(html), 'No robots noindex');
+    // The PR verifies researched source content before it is published. On the
+    // quarterly production run, additionally require the new bridge section.
+    const requiredPhrases = process.env.GITHUB_EVENT_NAME === 'pull_request'
+      ? target.phrases : target.path.startsWith('/destination/') ? target.phrases : [...target.phrases, 'Maury Maverick Bridge', 'Loren Mozley'];
+    for (const phrase of requiredPhrases) check(url + ' phrase ' + phrase, visible.includes(phrase), 'Visible page data');
+    const anchors = [...html.matchAll(/<a\b[^>]*\bhref=["']([^"']+)["'][^>]*>/gi)].map(m => m[1]);
+    for (const link of target.links) check(url + ' link ' + link, anchors.includes(link) || anchors.includes('https://texasdefined.com' + link), 'Rendered reciprocal link');
+    if (target.path === '/city/alvin' && process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+      check(url + ' current Census estimate', visible.includes('27,098') && visible.includes('30,115') && visible.includes('July 1, 2025'), 'Rendered dated estimate distinct from decennial count');
+    }
+    if (target.path === '/city/alvin' && process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+      check(url + ' municipal visitor logistics', ['118 S. Magnolia', '200 Depot Centre Boulevard', '300 W. Sealy', '6:30 a.m. to 10:30 p.m.','designated parking'].every(marker => visible.includes(marker)) && anchors.includes('https://www.alvin.gov/482/Park-Rules'), 'Park hours are not interior opening hours; municipal source link');
+    }
+    if (target.path === '/county/brazoria' && process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+      check(url + ' verified civic facts', visible.includes('372,031') && visible.includes('419,080') && visible.includes('Brazoria Central Appraisal District'), 'Current Census estimate and appraisal district name');
+      check(url + ' direct office contacts', ['Marcel Pierel III','979-849-7792','Kristin R. Bulanek','979-864-1320','Official appraisal district contact details','Official tax office contact details'].every(s=>visible.includes(s)), 'Dated contact facts must actually render; expired or missing facts require editorial review');
+      for (const official of ['https://esearch.brazoriacad.org/','https://brazoriacad.org/property-tax-exemption-forms/','https://brazoriacad.org/how-to-efile-a-protest/','https://tax.brazoriacountytx.gov/']) check(url + ' official service ' + official, anchors.includes(official), 'Rendered direct service link');
+    }
+    if (target.path === '/destination/alvin-historical-museum' && process.env.GITHUB_EVENT_NAME !== 'pull_request') check(url + ' dated admission evidence', visible.includes('2026') && visible.includes('$5') && visible.includes('12 and under') && anchors.includes('https://bcsummerpassport.org/sites/'), 'Dated sourced price, not guaranteed current tariff');
+    if (target.path.startsWith('/destination/')) check(url + ' no editorial instruction', !/Explain the difference between the main historic museum/.test(visible), 'No internal editorial language');
+    if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+      for (const id of ['25635261034', '26147334682', '5822129305']) check(url + ' photograph ' + id, html.includes(id), 'Visible page includes exact archival record');
+      check(url + ' photograph credits', visible.includes('DeGolyer Library') && visible.includes('No known copyright restrictions'), 'Reader-visible archival attribution');
+    }
+    const nodes = [...html.matchAll(/<script\b[^>]*\btype=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].flatMap(m => {
+      try { const value = JSON.parse(m[1]); return Array.isArray(value) ? value : value['@graph'] ?? [value]; }
+      catch { return []; }
+    });
+    check(url + ' JSON-LD ' + target.schema, nodes.some(node => [node?.['@type']].flat().includes(target.schema)), 'Parsed structured entity (including multi-type Museum/TouristAttraction)');
+  } catch (error) {
+    check(url + ' retrieval', false, String(error));
+  }
+}
+if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+  for (const [sitemap, paths] of [
+    ['/sitemap.xml', ['/city/alvin', '/county/brazoria']],
+    ['/sitemap-explore.xml', ['/destination/alvin-historical-museum']],
+  ]) {
+    try {
+      const response = await fetch('https://texasdefined.com' + sitemap, { signal: AbortSignal.timeout(30000), headers: { 'cache-control': 'no-cache' } });
+      const xml = await response.text();
+      for (const path of paths) {
+        const entries = [...xml.matchAll(/<url\b[^>]*>[\s\S]*?<\/url>/gi)].map(m => m[0]).filter(row => row.includes('<loc>https://texasdefined.com' + path + '</loc>'));
+        const date = entries[0]?.match(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/)?.[1];
+        check('Sitemap ' + path, response.ok && entries.length === 1 && !!date && date >= '2026-11-24', 'Unique canonical with actual editorial lastmod; observed ' + (date ?? 'missing'));
+      }
+    } catch(error) { check('Sitemap ' + sitemap, false, String(error)); }
+  }
+}
+await mkdir('artifacts/alvin-brazoria-authority', { recursive: true });
+await writeFile('artifacts/alvin-brazoria-authority/latest.json', JSON.stringify({
+  checkedAt: new Date().toISOString(),
+  scope: targets.map((target) => target.path),
+  passed: checks.filter(c=>c.passed).length,
+  failed: checks.filter(c=>!c.passed),
+  checks,
+}, null, 2) + '\n');
+for (const result of checks) console.log((result.passed ? 'PASS' : 'FAIL') + ' ' + result.name + ': ' + result.detail);
+if (checks.some((result) => !result.passed)) process.exitCode = 1;
+)));
+    check('Brazoria live property-tax API', !!valid, 'HTTP ' + response.status + '; finalized year ' + (summary?.year ?? 'missing') + '; group counts ' + groups.map(group => group + '=' + (summary?.[group]?.length ?? 'missing')).join(', '));
+  } catch (error) { check('Brazoria live property-tax API', false, String(error)); }
   // Direct source checks run away from visitor request paths; drift is reported, not silently restamped.
   const civicSources = [
     ['https://bcsummerpassport.org/sites/', ['Alvin Historical Museum', 'Admission: $5, 12 and under free']],
-    ['https://www.census.gov/quickfacts/fact/table/alvincitytexas/PST045225', ['30,115','27,098']],
+    ['https://www.alvin.gov/482/Park-Rules', ['6:30 a.m. to 10:30 p.m.', 'designated parking areas', 'No overnight parking']],
+    ['https://www.alvin.gov/Facilities/Facility/Details/National-Oak-Park-8', ['118 S Magnolia', 'Parking', 'Picnic Tables', 'Playground']],
+    ['https://www.alvin.gov/Facilities/Facility/Details/Historic-Depot-Centre-and-Tom-Blakeney-J-1', ['200 Depot Centre Boulevard', '1907', '281-388-4299']],
+    ['https://alvinmuseum.org/', ['300 West Sealy', '281-331-4469', '11am-3pm', 'appointment']],
+    ['https://www.census.gov/quickfacts/alvincitytexas', ['30,115','27,098','July 1, 2025']],
     ['https://www.census.gov/quickfacts/fact/table/brazoriacountytexas/PST045225', ['419,080','372,031']],
     ['https://brazoriacad.org/contact-us/', ['849-7792','help@brazoriacad.org','500 N Chenango St','Marcel Pierel III']],
     ['https://brazoriacad.org/administration/', ['Marcel Pierel']],
