@@ -146,9 +146,9 @@ export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
     organizer: organization("National WASP WWII Museum", "https://waspmuseum.org/"),
     sources: [
       { label: "Official 2026 Homecoming", url: "https://waspmuseum.org/events/2026-wasp-homecoming/" },
-      { label: "Homecoming heritage and itinerary", url: "https://waspmuseum.org/wasp-heritage-events/" },
+      { label: "Museum confirmed 2027 homecoming dates and admission", url: "https://waspmuseum.org/homecoming/" },
     ],
-    verifiedAt: "2026-10-17",
+    verifiedAt: "2026-11-27",
   },  {
     slug: "amigo-airsho",
     organizer: organization("Amigo Airsho", "https://www.amigoairsho.com/home"),

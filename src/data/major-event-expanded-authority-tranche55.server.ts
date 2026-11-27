@@ -262,8 +262,8 @@ const records: FestivalEventRecord[] = [
     endDate: "2027-02-28",
     venue: "Port Aransas Civic Center and offsite nature excursions",
     officialUrl: "https://www.portaransas.org/whooping-crane-festival/",
-    sourceCheckedAt: "2026-10-21",
-    whyItMatters: "This annual coastal gathering connects birders with the endangered whooping crane's winter habitat through speaker sessions, birding excursions, boat tours and photography workshops. Guided field trips and boat outings require separate planning; some are not at the Civic Center.",
+    sourceCheckedAt: "2026-11-27",
+    whyItMatters: "The 30th anniversary festival marks a tradition begun in 1996 celebrating the endangered cranes' return to their winter habitat at Aransas National Wildlife Refuge. The organizer partners with the International Crane Foundation and now advertises 2027 excursion tickets. Guided field trips and boat outings require separate planning; some are not at the Civic Center.",
     quickFacts: [
       {
         label: "Confirmed edition",
@@ -285,11 +285,11 @@ const records: FestivalEventRecord[] = [
     planningSections: [
       {
         title: "Reserve the particular field trip before accommodation",
-        body: "Boat outings, nature tours and photography workshops have different departure points, group capacities, prices and weather risks. Select and book the specific outing through the festival program before deciding which mornings are free."
+        body: "The February 25 program includes a morning Fennessey Ranch bus outing, island birding, kayak excursions and two crane boat departures. Friday February 26 adds a King Ranch tour, Lamar Peninsula birding and photography workshops. Tickets are on sale; choose each departure separately and verify availability, meeting point and cancellation terms."
       },
       {
         title: "Do not assume the speakers' schedule is the boat schedule",
-        body: "The Civic Center hosts festival activity, while excursions travel to coastal and wetland habitats. The official 2027 page currently retains some 2026 check-in hours as historical information; do not apply those hours to 2027."
+        body: "The explicitly dated 2027 schedule lists Civic Center registration Thursday 8 a.m.–5 p.m., Friday and Saturday 7 a.m.–5 p.m., Sunday 7:30–10:30 a.m. The exhibit fair is Thursday noon–5 p.m. and Friday/Saturday 9 a.m.–5 p.m. The Thursday public lecture at the UT Marine Science Institute Patton Center is free, first come, first seated; it is not a reserved boat ticket."
       },
       {
         title: "Prepare for responsible wildlife watching",
@@ -318,6 +318,8 @@ const records: FestivalEventRecord[] = [
       }
     ],
     sources: [
+      { label: "Official February 25–28, 2027 schedule", url: "https://www.portaransas.org/whooping-crane-festival/the-2027-festival/schedule/" },
+      { label: "Official excursion ticket page", url: "https://www.portaransas.org/whooping-crane-festival/the-2027-festival/buy-tickets/" },
       {
         label: "Port Aransas Tourism Bureau 2027 festival",
         url: "https://www.portaransas.org/whooping-crane-festival/the-2027-festival/"
@@ -340,7 +342,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2027-04-29",
     venue: "Multiple Dallas-area screening venues; see official program",
     officialUrl: "https://diffdallas.org/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "Dallas International Film Festival brings independent and international filmmakers into conversation with North Texas audiences. The permanent guide helps readers plan passes, screening travel and industry sessions while leaving the still-developing 2027 film lineup to the organizer.",
     quickFacts: [
       {
@@ -367,7 +369,7 @@ const records: FestivalEventRecord[] = [
       },
       {
         title: "Choose a pass based on the experience",
-        body: "A film-screening visitor, an industry participant and a person attending one filmmaker conversation may require different products. Confirm eligibility, entry windows, age ratings and ticket-refund terms through DIFF's official purchase channels."
+        body: "The official 2027 pass page distinguishes screening access from industry sessions: the standard Festival Pass lists $250 for one person, while the $100 Film Pass requires a current student ID or age 65 or older. The $100 Conference Pass covers conference sessions rather than general screening admission. Star and Star Plus passes list $350 for one and $700 for two with priority screenings and selected parties. These are posted list prices, not guaranteed checkout totals. Recheck current discounts and terms before purchase."
       },
       {
         title: "Minimize cross-town transfers",
@@ -399,7 +401,8 @@ const records: FestivalEventRecord[] = [
       {
         label: "DIFF Dallas official 2027 dates and festival mission",
         url: "https://diffdallas.org/"
-      }
+      },
+      { label: "Official 2027 festival pass options and eligibility", url: "https://diffdallas.org/diff/passes" }
     ]
   },
   {
@@ -414,7 +417,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2027-05-08",
     venue: "Houston screening venues; see published 2027 program",
     officialUrl: "https://www.worldfest.org/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "WorldFest-Houston's 60th edition focuses on independent film and international storytellers. The festival's 2027 dates are announced, but submissions and juror recruitment are still underway; specific public screenings and venues should not be asserted until the final program.",
     quickFacts: [
       {
@@ -437,7 +440,7 @@ const records: FestivalEventRecord[] = [
     planningSections: [
       {
         title: "Distinguish film submissions from visitor ticket sales",
-        body: "The site prominently features submission deadlines and jury participation. These are industry opportunities, not public admission passes. Use only the announced screening and ticket program when arranging a visitor trip."
+        body: "The main film-entry deadline was November 15, 2026. The new International Autistic Filmmakers Showcase is announced for April 30, 2027 with Spectrum Fusion sponsoring up to 100 eligible submissions until January 15 or exhaustion. A qualifying project includes an autistic artist in a principal creative role; self-identification is accepted. Submission fee assistance is not an audience ticket."
       },
       {
         title: "Plan by the final screening venue map",
@@ -477,6 +480,10 @@ const records: FestivalEventRecord[] = [
       {
         label: "WorldFest 2027 submissions and deadlines",
         url: "https://www.worldfest.org/film-submission"
+      },
+      {
+        label: "2027 showcase eligibility and sponsorship terms",
+        url: "https://www.worldfest.org/festival/autistic-filmmakers-showcase"
       }
     ]
   },
@@ -492,7 +499,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2027-07-18",
     venue: "Downtown Waco theaters; exact screenings TBA",
     officialUrl: "https://www.wacoindie.com/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "Waco Indie combines a compact downtown film-festival atmosphere with screenings, conversations and filmmaker recognition. The announced July 2027 physical festival is distinct from the online encore that starts after the in-person edition.",
     quickFacts: [
       {
@@ -519,11 +526,11 @@ const records: FestivalEventRecord[] = [
       },
       {
         title: "Plan around a screening or filmmaker event",
-        body: "Venue doors, Q&As and sell-outs matter more than a general multi-day date. Choose the sessions you most want, then use downtown Waco dining and walkable activities around those fixed times."
+        body: "The organizer groups short films into themed blocks lasting roughly 90 minutes to two hours. Its older FAQ describes individual block admission, six-ticket packs and VIP access, but the FAQ still carries the previous July 16–19 dates. Confirm 2027 admission terms and showtimes rather than assuming prior pass benefits continue."
       },
       {
         title: "Check the venue before buying parking or lodging",
-        body: "Past editions used downtown movie houses, including the Waco Hippodrome. The 2027 festival has announced the city and dates, but current individual screening locations must be verified on the final program."
+        body: "The 2027 submission guide explains that independent galleries, performance spaces and the historic theater may host films; do not assume every screening has multiplex equipment. The organizer accepts shorts, features, student shorts, music videos and screenplays through FilmFreeway. Filmmaker entry fees are distinct from visitor admission."
       },
       {
         title: "Accessible filmgoing takes advance coordination",
@@ -555,6 +562,14 @@ const records: FestivalEventRecord[] = [
       {
         label: "Official submission platform confirming 2027 edition",
         url: "https://filmfreeway.com/WacoIndie"
+      },
+      {
+        label: "Organizer 2027 submission guide and venue format",
+        url: "https://www.wacoindie.com/submissions"
+      },
+      {
+        label: "Prior-edition FAQ (ticket types and screening format, not 2027 terms)",
+        url: "https://www.wacoindie.com/faq"
       }
     ]
   },
@@ -640,17 +655,17 @@ const records: FestivalEventRecord[] = [
     countyName: "McLennan County",
     region: "prairies-lakes",
     category: "food",
-    startDate: "2026-04-11",
-    endDate: "2026-04-11",
-    venue: "Heritage Square, Downtown Waco",
+    startDate: "2027-04-17",
+    endDate: "2027-04-17",
+    venue: "Downtown Waco; 2027 site map pending",
     officialUrl: "https://thetexasfoodtruckshowdown.com/",
-    sourceCheckedAt: "2026-10-21",
-    dateNote: "The organizer confirms only April 11, 2026; no verified 2027 date, so this is a past-edition evergreen guide.",
-    whyItMatters: "Organized by the Greater Waco Chamber of Commerce, this competitive food-truck day pairs signature-dish voting with family activities and full-menu sales later in the evening. Its 2026 edition has ended, and the 2027 event date is not yet confirmed.",
+    sourceCheckedAt: "2026-11-27",
+    dateNote: "The Greater Waco Chamber confirms April 17, 2027 in downtown Waco; final hours, truck list and ticket terms are not yet confirmed.",
+    whyItMatters: "Organized by the Greater Waco Chamber of Commerce, this competitive food-truck day pairs signature-dish voting with family activities and full-menu sales later in the evening. The next edition is confirmed for April 17, 2027; the chamber's historical competition model helps visitors plan without assuming the same truck roster or tasting terms.",
     quickFacts: [
       {
-        label: "Last confirmed date",
-        value: "April 11, 2026 — completed"
+        label: "Next confirmed date",
+        value: "April 17, 2027"
       },
       {
         label: "Organizer",
@@ -662,7 +677,7 @@ const records: FestivalEventRecord[] = [
       },
       {
         label: "Next edition",
-        value: "2027 date not announced"
+        value: "Downtown Waco; detailed program pending"
       }
     ],
     planningSections: [
@@ -676,11 +691,11 @@ const records: FestivalEventRecord[] = [
       },
       {
         title: "Use an organizer-confirmed date",
-        body: "Although the Waco Chamber calls the Showdown annual, it has not published a specific 2027 event date as of this check. Keep the permanent authority guide available, but show April 2026 as completed rather than rolling it forward."
+        body: "The chamber's current homepage names Saturday, April 17, 2027 and states that 2027 truck and market vendor applications would open in October. The 2026 festival took place April 11; do not reuse its ticket prices, operating hours or detailed map for 2027."
       },
       {
         title: "Treat the downtown footprint as a walking festival",
-        body: "Heritage Square is near Waco's restaurant core. Once a new edition is announced, follow the official location map for truck lines, traffic, accessible paths and parking; avoid reusing a 2026 vehicle entry plan."
+        body: "Heritage Square is near Waco's restaurant core. Once the 2027 site map is published, follow the official location map for truck lines, traffic, accessible paths and parking; avoid reusing a 2026 vehicle entry plan."
       }
     ],
     relatedLinks: [
@@ -702,12 +717,16 @@ const records: FestivalEventRecord[] = [
     ],
     sources: [
       {
-        label: "Greater Waco Chamber 2026 event details",
+        label: "Greater Waco Chamber 2026 event details (historical)",
         url: "https://business.wacochamber.com/events/Details/2026-texas-food-truck-showdown-1646517"
       },
       {
-        label: "Official Showdown organizer and competition schedule",
-        url: "https://thetexasfoodtruckshowdown.com/schedule-of-events/"
+        label: "Official Showdown 2027 date and vendor announcements",
+        url: "https://thetexasfoodtruckshowdown.com/"
+      },
+      {
+        label: "Organizer history and competition format",
+        url: "https://thetexasfoodtruckshowdown.com/our-story/"
       }
     ]
   },
@@ -807,7 +826,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2027-06-19",
     venue: "Southern Methodist University and Morton H. Meyerson Symphony Center",
     officialUrl: "https://cliburn.org/competitions/2027-young-pianists",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The Cliburn's 2027 Dallas competition showcases outstanding young pianists ages 13–17 in a sequence of juried recitals and a final with the Dallas Symphony Orchestra. This is a distinct competition from the main Van Cliburn International Piano Competition, which is not an annual Fort Worth event.",
     quickFacts: [
       {
@@ -830,11 +849,11 @@ const records: FestivalEventRecord[] = [
     planningSections: [
       {
         title: "Choose the competition round to attend",
-        body: "Preliminary and semifinal recitals are scheduled on the SMU campus while the six finalists appear with the Dallas Symphony Orchestra at the Morton H. Meyerson Symphony Center. This is not one continuous concert at a single building; confirm the published round-by-round visitor program."
+        body: "Preliminary and semifinal recitals are scheduled on the SMU campus while the six finalists appear with the Dallas Symphony Orchestra at the Morton H. Meyerson Symphony Center. The 38 fellows begin their program June 7, before the public competition. Of 24 competitors, 12 advance to the semifinal and six to the orchestral final. The rules confirm every competition round is open to the public and available by webcast live and on demand. Exact audience session times and ticket prices remain subject to the official program."
       },
       {
         title: "Do not confuse contestant applications with tickets",
-        body: "The organizer's current page emphasizes pianist applications, due November 17, 2026, while visitor tickets are expected to go on sale in January 2027. An application deadline does not mean an audience seat is available for purchase yet."
+        body: "The November 17, 2026 application deadline has passed; the official rules say late submissions are not accepted, despite the overview retaining an application invitation. Acceptance notices are scheduled January 26, Piano Fellows announced February 9 and public ticket sales in January 2027. Application fees are not audience admission."
       },
       {
         title: "Plan different transport for the SMU and Meyerson venues",

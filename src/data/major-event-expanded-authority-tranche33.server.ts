@@ -28,12 +28,12 @@ const records: MultiWindowMajorEventAuthorityRecord[] = [
     dateNote: "Official 2027 Houston race weekend includes the Saturday January 16 We Are Houston 5K (8 a.m. start) and Sunday January 17 marathon/half marathon starting at Congress & Fannin from 6:35 a.m. by division. The Friday–Saturday expo and packet pickup are at George R. Brown Convention Center; use the detailed organizer schedule for participant deadlines.",
     venue: "Downtown Houston",
     officialUrl: "https://www.chevronhoustonmarathon.com/",
-    sourceCheckedAt: "2026-11-07",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The Chevron Houston Marathon weekend is one of Texas' largest winter running events, pairing the Saturday We Are Houston 5K with Sunday's marathon and Aramco Houston Half Marathon through downtown Houston and drawing a major field of runners, volunteers and spectators.",
     planningSections: [
-      { title: "Separate Saturday's 5K from Sunday's distance races", body: "The 2027 organizer schedule places the We Are Houston 5K on January 16 with an 8 a.m. start after an earlier wheelchair division. The Chevron Houston Marathon and Aramco Houston Half Marathon are January 17, with wheelchair/handcycle starts at 6:35 a.m. and open/elite divisions beginning about 6:45–6:55 a.m. from Congress & Fannin. Do not merge these into a single generic race-day time." },
+      { title: "Separate Saturday's 5K from Sunday's distance races", body: "The 2027 organizer schedule places the We Are Houston 5K on January 16 with an 8 a.m. start after an earlier wheelchair division. The Chevron Houston Marathon and Aramco Houston Half Marathon are January 17, with wheelchair/handcycle starts at 6:35 a.m. and open/elite divisions beginning about 6:45–6:55 a.m. from Congress & Fannin. The current registration table marks both Sunday distances sold out; the separate Saturday 5K was still listed at $60 on November 27. Check official checkout for availability. Already registered runners seeking front-corral seeding must submit qualifying evidence by November 30, 2026." },
       { title: "Use downtown transit and race guidance", body: "The organizer publishes downtown transportation guidance and recommends Houston METRORail for race-day movement. Check the current course, road-closure and spectator information before relying on normal downtown driving patterns." },
-      { title: "Build packet pickup into arrival timing", body: "The organizer confirms participant expo and packet pickup at George R. Brown Convention Center January 15 from 10 a.m.–6 p.m. and January 16 from 8:30 a.m.–5 p.m. Marathon and half-marathon runners should review pickup and entry instructions before race weekend rather than expecting Sunday morning packet pickup." },
+      { title: "Build packet pickup into arrival timing", body: "The organizer confirms participant expo and packet pickup at George R. Brown Convention Center January 15 from 10 a.m.–6 p.m. and January 16 from 8:30 a.m.–5 p.m. The dated race-weekend schedule also lists Saturday 5K packet pickup from 6:30 a.m. The registration FAQ retains conflicting January 9–10 expo dates; follow the explicitly dated January 15–16, 2027 schedule and reconfirm with the organizer. Marathon and half-marathon runners cannot collect packets on Sunday morning." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-harris", label: "Explore Harris County", description: "Extend race weekend into Houston and the surrounding county." },
@@ -41,7 +41,7 @@ const records: MultiWindowMajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Chevron Houston Marathon official 2027 race-weekend schedule", url: "https://www.chevronhoustonmarathon.com/schedule/" },
-      { label: "Chevron Houston Marathon official registration", url: "https://www.chevronhoustonmarathon.com/participants/registration/" },
+      { label: "Chevron Houston Marathon official registration", url: "https://www.chevronhoustonmarathon.com/registration/" },
       { label: "Chevron Houston Marathon official expo information", url: "https://www.chevronhoustonmarathon.com/race-weekend/expo-packet-pick-up/" },
     ],
   },
@@ -57,11 +57,11 @@ const records: MultiWindowMajorEventAuthorityRecord[] = [
     endDate: "2027-01-17",
     venue: "Austin, Texas",
     officialUrl: "https://downhilltodowntown.com/",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The Spurs Austin International Half, formerly the 3M Half Marathon, carries a long-running Austin road-racing tradition into a newly branded 2027 event built around a fast downhill 13.1-mile course and a downtown finish.",
     planningSections: [
-      { title: "Race day is Sunday, January 17", body: "The organizer publishes January 17, 2027 as race day with a 7:30 a.m. start. Friday and Saturday are expo and packet-pickup days, so the Event date remains the actual Sunday race rather than the full administrative weekend." },
-      { title: "Plan for a point-to-point race day", body: "The event markets a downhill-to-downtown course and publishes shuttle and gear-check timing. Review the current course, start-area and return-shuttle instructions before deciding where to park or stay." },
+      { title: "Race day is Sunday, January 17", body: "The organizer publishes January 17, 2027 as race day with a 7:30 a.m. start. Packet pickup is Friday January 15 from 1–7 p.m. and Saturday January 16 from 10 a.m.–5 p.m. The Sunday wheelchair start is 7:25 a.m., followed by the main race at 7:30 a.m." },
+      { title: "Plan for a point-to-point race day", body: "The official schedule opens gear check at 6 a.m.; return shuttles from the finish begin at 8:45 a.m., with the last at 12:15 p.m. The course closes at 11:30 a.m. Unsafe weather can delay the start by up to 45 minutes or cancel the race; confirm current organizer instructions." },
       { title: "Race weekend and the elite-entry deadline are different dates", body: "The organizer reconfirms race day Sunday, January 17, 2027 and describes a point-to-point, net-downhill USATF-certified half-marathon. Its November 10 update sets a December 31, 2026 deadline for elite-field applications; that deadline is not the public race registration deadline. Check the current race-weekend schedule for packet pickup, transportation and start corrals." },
     ],
     relatedLinks: [
@@ -86,12 +86,12 @@ const records: MultiWindowMajorEventAuthorityRecord[] = [
     endDate: "2027-02-28",
     venue: "Westwood Country Club",
     officialUrl: "https://atxopen.com/",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The ATX Open is Austin's professional WTA Tour tournament and one of the country's limited women-only tour-level tennis events, bringing a full qualifying and main-draw week to Westwood Country Club.",
     planningSections: [
       { title: "Qualifying February 20–21 is not the main draw", body: "The organizer's 2027 WTA schedule confirms qualifying February 20–21 and the 32-player singles/16-team doubles main draw February 22–28. Ticket sessions are sold separately; match order and player placement depend on the draw. Check the exact date and whether the ticket includes qualifying or main-draw admission." },
       { title: "Use the correct 2027 venue, not historical ATX Open parking", body: "The 2027 venue is Westwood Country Club, 3808 W. 35th St., Austin, following a multiyear Westwood partnership. Historical Austin tournament sites and their parking instructions do not apply; consult official transportation guidance before driving." },
-      { title: "Choose sessions rather than assuming all-day access", body: "The ATX Open sells single-session and multi-session ticket products across qualifying, early rounds, quarterfinals, semifinals and finals. Match orders can change, so use the official schedule and ticket calendar when planning a specific player or round." },
+      { title: "Choose sessions rather than assuming all-day access", body: "The dated ticket calendar includes reserved Center Court seats and first-come, unreserved Grandstand seating. February 20–21 qualifying is advertised from $10 but marked coming soon; February 22 first-round day and evening sessions are listed from $45, with a combined day/night option from $60. These are November 27 starting prices, not guarantees; quarterfinals are February 26, semifinals February 27 and finals February 28. Confirm availability and fees at checkout." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Build a broader Austin itinerary around tournament week." },

@@ -82,6 +82,21 @@ try {
       const robots=await page.locator('meta[name="robots"]').first().getAttribute("content").catch(()=>null);
       check("indexable robots",!/\bnoindex\b/i.test(robots||""),robots);
       check("at least one primary external citation",await page.locator('main a[href^="https://"]').count()>=1);
+      if(spec.path==="/texas-homecoming-mums") {
+        const order=await page.evaluate(()=>{
+          const answer=document.querySelector('#quick-answer');
+          const portrait=document.querySelector('main img[alt*="Goldthwaite"]');
+          return {answers:document.querySelectorAll('#quick-answer').length,
+            before:Boolean(answer&&portrait&&(answer.compareDocumentPosition(portrait)&Node.DOCUMENT_POSITION_FOLLOWING)),
+            answerY:answer?.getBoundingClientRect().top,
+            portraitY:portrait?.getBoundingClientRect().top,
+            portraitLoading:portrait?.getAttribute('loading'),
+            viewportHeight:innerHeight};
+        });
+        check("definition is presented once, before the tall portrait and diagrams",order.answers===1&&order.before,order);
+        check("portrait is deferred only after the answer in the reading flow",order.portraitLoading==="lazy"&&order.portraitY>order.answerY,order);
+        if(viewport.width<=390)check("tall portrait lies below initial mobile viewport",order.portraitY>=order.viewportHeight,order);
+      }
       const images=page.locator("main img");
       check("editorial image present",await images.count()>0,await images.count());
       if(await images.count()) {
@@ -112,11 +127,18 @@ try {
         const sizing=await hero.evaluate(el=>({
           width:el.getAttribute("width"),height:el.getAttribute("height"),
           src:el.getAttribute("src"),decoded:el.complete&&el.naturalWidth>0,
+          naturalWidth:el.naturalWidth,naturalHeight:el.naturalHeight,
           aspect:el.naturalWidth&&el.naturalHeight?el.naturalWidth/el.naturalHeight:null
         }));
-        check("portrait homecoming hero reserves intrinsic aspect, uses 720px licensed thumbnail and decodes",
-          sizing.width==="1876" && sizing.height==="3922" &&
-          sizing.src?.includes("width%3D720") && sizing.decoded,sizing);
+        check("portrait homecoming hero uses exact local licensed WebP and reserves actual decoded dimensions",
+          sizing.width==="640" && sizing.height==="1338" &&
+          sizing.src==="/images/editorial/optimized/goldthwaite-homecoming-mum-640.webp" &&
+          sizing.naturalWidth===640 && sizing.naturalHeight===1338 && sizing.decoded,sizing);
+        const imageResponse=await page.request.get(new URL(sizing.src,page.url()).href);
+        const imageBytes=(await imageResponse.body()).length;
+        check("homecoming hero actual response is bounded WebP",
+          imageResponse.status()===200 && /^image\/webp\b/i.test(imageResponse.headers()["content-type"]||"") &&
+          imageBytes>10000 && imageBytes<=125000,{status:imageResponse.status(),bytes:imageBytes,mime:imageResponse.headers()["content-type"]});
       }
       const dims=await page.evaluate(()=>({
         viewport:document.documentElement.clientWidth,

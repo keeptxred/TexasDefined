@@ -1,25 +1,7 @@
 {
-  "generatedAt": "2026-11-24T21:20:05.900Z",
+  "generatedAt": "2026-11-26T20:13:39.155Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Birding with a Ranger",
-      "startDate": "2026-11-25",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/birding-with-a-ranger/2026-11-25"
-    },
-    {
-      "title": "Morning Nature Walk",
-      "startDate": "2026-11-25",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-11-25"
-    },
-    {
-      "title": "World Birding Center Birding Tours",
-      "startDate": "2026-11-25",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-25"
-    },
     {
       "title": "Armadillo Antics",
       "startDate": "2026-11-27",
@@ -171,7 +153,7 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-11-28"
     },
     {
-      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "title": "Saturday Honey Creek Guided Walk--Registration Required (Nov. 28 Full)",
       "startDate": "2026-11-28",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-11-28"
@@ -291,10 +273,10 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-02"
     },
     {
-      "title": "Alligators: Predatory Engineers",
+      "title": "Awesome Opossums",
       "startDate": "2026-12-03",
       "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/alligator-talk/2026-12-03"
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/awesome-opossums/2026-12-03"
     },
     {
       "title": "Coffee with the Superintendents",
@@ -333,16 +315,16 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/reading-with-a-ranger/2026-12-03"
     },
     {
+      "title": "Alligators: Predatory Engineers",
+      "startDate": "2026-12-04",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/alligator-talk/2026-12-04"
+    },
+    {
       "title": "Arts & Crafts",
       "startDate": "2026-12-04",
       "parkKey": "choke-canyon",
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-12-04"
-    },
-    {
-      "title": "Awesome Opossums",
-      "startDate": "2026-12-04",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/awesome-opossums/2026-12-04"
     },
     {
       "title": "Birding Hike",
@@ -367,6 +349,12 @@
       "startDate": "2026-12-04",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/indian-lodge-tour-1/2026-12-04"
+    },
+    {
+      "title": "Island Trail Hike",
+      "startDate": "2026-12-04",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-12-04"
     },
     {
       "title": "Master Naturalist Hike",
@@ -423,7 +411,7 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/park-2-park-hike/2026-12-05"
     },
     {
-      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "title": "Saturday Honey Creek Guided Walk--Registration Required (Nov. 28 Full)",
       "startDate": "2026-12-05",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-12-05"
@@ -525,6 +513,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-09"
     },
     {
+      "title": "Awesome Opossums",
+      "startDate": "2026-12-10",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/awesome-opossums/2026-12-10"
+    },
+    {
       "title": "Electric Tram Tour",
       "startDate": "2026-12-10",
       "parkKey": "estero-llano-grande",
@@ -567,6 +561,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/indian-lodge-tour-1/2026-12-11"
     },
     {
+      "title": "Island Trail Hike",
+      "startDate": "2026-12-11",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-12-11"
+    },
+    {
       "title": "Meet The Longhorns",
       "startDate": "2026-12-11",
       "parkKey": "copper-breaks",
@@ -595,6 +595,12 @@
       "startDate": "2026-12-12",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2026-12-12"
+    },
+    {
+      "title": "Armadillo Antics",
+      "startDate": "2026-12-12",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/armadillo-antics/2026-12-12"
     },
     {
       "title": "Basic Fishing",
@@ -633,6 +639,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/full-moon-hike/2026-12-12"
     },
     {
+      "title": "Guided Paddle",
+      "startDate": "2026-12-12",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/guided-paddle/2026-12-12"
+    },
+    {
       "title": "Holiday at the Lake",
       "startDate": "2026-12-12",
       "parkKey": "lake-brownwood",
@@ -651,7 +663,7 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-12-12"
     },
     {
-      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "title": "Saturday Honey Creek Guided Walk--Registration Required (Nov. 28 Full)",
       "startDate": "2026-12-12",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-12-12"
@@ -735,6 +747,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-16"
     },
     {
+      "title": "Armadillo Antics",
+      "startDate": "2026-12-17",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/armadillo-antics/2026-12-17"
+    },
+    {
       "title": "Electric Tram Tour",
       "startDate": "2026-12-17",
       "parkKey": "estero-llano-grande",
@@ -745,6 +763,12 @@
       "startDate": "2026-12-17",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/hike-with-homeless-dogs/2026-12-17"
+    },
+    {
+      "title": "Alligators: Predatory Engineers",
+      "startDate": "2026-12-18",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/alligator-talk/2026-12-18"
     },
     {
       "title": "Arts & Crafts",
@@ -763,6 +787,12 @@
       "startDate": "2026-12-18",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/invasive-vs-native-species/2026-12-18"
+    },
+    {
+      "title": "Island Trail Hike",
+      "startDate": "2026-12-18",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-12-18"
     },
     {
       "title": "Master Naturalist Hike",
@@ -813,7 +843,7 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/monahans-sandhills/ornament-decorating-and-hot-chocolate-at-the-sandhills-section-house-2/2026-12-19"
     },
     {
-      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "title": "Saturday Honey Creek Guided Walk--Registration Required (Nov. 28 Full)",
       "startDate": "2026-12-19",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-12-19"
@@ -921,10 +951,22 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2026-12-26"
     },
     {
+      "title": "Awesome Opossums",
+      "startDate": "2026-12-26",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/awesome-opossums/2026-12-26"
+    },
+    {
       "title": "Bean Mountain Loop Hike",
       "startDate": "2026-12-26",
       "parkKey": "albert-bessie-kronkosky-state-natural-area",
       "officialUrl": "https://tpwd.texas.gov/calendar/albert-bessie-kronkosky-state-natural-area/bean-mountain-loop-hike/2026-12-26"
+    },
+    {
+      "title": "Birdwatching with a Ranger",
+      "startDate": "2026-12-26",
+      "parkKey": "lake-bob-sandlin",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-bob-sandlin/copy3_of_birding-101/2026-12-26"
     },
     {
       "title": "Discovery Night",
@@ -937,6 +979,12 @@
       "startDate": "2026-12-26",
       "parkKey": "enchanted-rock",
       "officialUrl": "https://tpwd.texas.gov/calendar/enchanted-rock/enchanting-junior-ranger-academy/2026-12-26"
+    },
+    {
+      "title": "Fire Craft",
+      "startDate": "2026-12-26",
+      "parkKey": "lake-bob-sandlin",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-bob-sandlin/fire-building-101/2026-12-26"
     },
     {
       "title": "Fort Davis Tales",
@@ -957,7 +1005,7 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-12-26"
     },
     {
-      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "title": "Saturday Honey Creek Guided Walk--Registration Required (Nov. 28 Full)",
       "startDate": "2026-12-26",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-12-26"
@@ -1035,10 +1083,22 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-30"
     },
     {
+      "title": "Armadillo Antics",
+      "startDate": "2026-12-31",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/armadillo-antics/2026-12-31"
+    },
+    {
       "title": "Electric Tram Tour",
       "startDate": "2026-12-31",
       "parkKey": "estero-llano-grande",
       "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-12-31"
+    },
+    {
+      "title": "Island Trail Hike",
+      "startDate": "2026-12-31",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-12-31"
     },
     {
       "title": "First Day Hike - Self-Guided",
@@ -1069,6 +1129,18 @@
       "startDate": "2027-01-02",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2027-01-02"
+    },
+    {
+      "title": "Alligators: Predatory Engineers",
+      "startDate": "2027-01-02",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/alligator-talk/2027-01-02"
+    },
+    {
+      "title": "Island Trail Hike",
+      "startDate": "2027-01-02",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2027-01-02"
     },
     {
       "title": "Limpia Creek Vista Summit Hike",

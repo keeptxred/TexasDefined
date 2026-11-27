@@ -48,14 +48,14 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" || "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
             echo 'run=true' >> "$GITHUB_OUTPUT"
           elif [[ "$GITHUB_EVENT_NAME" == "workflow_run" ]]; then
             EXPECTED_HEAD="$(git rev-parse HEAD)" node --input-type=module -e '
               import {readFileSync, appendFileSync} from "node:fs";
               const plan = JSON.parse(readFileSync(".artifacts/deployed-change-plan/production-change-plan.json", "utf8"));
               if (plan.head !== process.env.EXPECTED_HEAD || !Array.isArray(plan.changedFiles) || !plan.changedFiles.every(file => typeof file === "string")) throw new Error("Deployment plan missing or does not match verified source SHA");
-              const relevant = /alvin-brazoria|brazoria-county|city-authority-profiles|county-profile|local-government-profile|CountyGuideSections|EntityDepthSections|AlvinHistoricalPhotographs|MuseumAuthorityNetworkSection|museum-authority-new-destinations|museum-authority-network|museum-visitor-faqs|museum-verification-manifest/;
+              const relevant = /alvin-brazoria|brazoria-county|city-authority-profiles|county-profile|local-government-profile|CountyGuideSections|CountyTaxRateSection|EntityDepthSections|texas-icons-research-sports-1|galveston-county-island-port-juneteenth|AlvinHistoricalPhotographs|MuseumAuthorityNetworkSection|museum-authority-new-destinations|museum-authority-network|museum-visitor-faqs|museum-verification-manifest/;
               const run = plan.changedFiles.some(file => relevant.test(file));
               appendFileSync(process.env.GITHUB_OUTPUT, `run=${run}\n`);
               console.log(`Browser acceptance ${run ? "required" : "not in deployment scope"}; baseline ${plan.baseline ?? "unknown"}, head ${plan.head}`);
@@ -73,6 +73,17 @@ jobs:
       - name: Verify all three published guides in JS-disabled and hydrated desktop/mobile Chrome
         if: steps.scope.outputs.run == 'true'
         run: node scripts/ci/verify-alvin-brazoria-browser.mjs
+      - name: Verify full civic sources and deployed content after production release
+        if: always() && steps.scope.outputs.run == 'true' && github.event_name != 'pull_request'
+        run: node scripts/data/verify-alvin-brazoria-authority.mjs
+      - name: Preserve complete dated source verification evidence
+        if: always() && steps.scope.outputs.run == 'true' && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: alvin-brazoria-authority-${{ github.run_id }}
+          path: artifacts/alvin-brazoria-authority/latest.json
+          if-no-files-found: error
+          retention-days: 90
       - name: Preserve full report and browser evidence
         if: always() && steps.scope.outputs.run == 'true'
         uses: actions/upload-artifact@v4

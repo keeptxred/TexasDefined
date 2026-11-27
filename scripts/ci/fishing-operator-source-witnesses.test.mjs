@@ -10,17 +10,22 @@ import {
 
 const guides = JSON.parse(fs.readFileSync("src/data/fishing/curated-fishing-guide-businesses.json", "utf8"));
 
-test("two researched fishing sources retain strict operator or government authority witnesses", () => {
+test("individually researched fishing sources retain strict operator or government authority witnesses", () => {
   assert.deepEqual([...PINNED_FISHING_OPERATOR_SOURCE_SLUGS].sort(), [
-    "captain-steve-barnes-texoma", "reel-um-n-sam-rayburn-guide",
+    "adventure-texoma-guide", "captain-steve-barnes-texoma", "reel-um-n-sam-rayburn-guide",
   ]);
   for (const slug of PINNED_FISHING_OPERATOR_SOURCE_SLUGS) {
     const guide = guides.find((candidate) => candidate.slug === slug);
     assert.ok(guide, slug + ": missing independently curated operator");
     const result = sourceForFishingGuideReview(guide);
-    if (slug === "captain-steve-barnes-texoma") {
+    if (["captain-steve-barnes-texoma", "adventure-texoma-guide"].includes(slug)) {
       assert.equal(new URL(result.url).origin, "https://wildlifedepartment.com");
       assert.equal(result.sourceKind, "government-license");
+    } else if (slug === "reel-um-n-sam-rayburn-guide") {
+      assert.equal(new URL(result.url).origin, "https://tpwd.texas.gov");
+      assert.equal(result.sourceKind, "government-report-identity-only");
+      assert.ok(result.identity.includes("Report by Captain Lynn Atkinson, Reel Um N Guide Service"));
+      assert.ok(result.identity.includes("Sam Rayburn Fishing Report"));
     } else {
       assert.equal(new URL(result.url).origin, new URL(guide.url).origin);
       assert.equal(result.sourceKind, "operator-detail");
@@ -28,7 +33,11 @@ test("two researched fishing sources retain strict operator or government author
     assert.notEqual(result.url, guide.url, "detail witness must be more specific than an unreliable homepage");
     assert.ok(result.identity.length >= 3);
     const digits = (s) => s.replace(/[^0-9]/g, "");
-    assert.ok(result.identity.some(value => digits(value).includes(digits(guide.phone))), "phone must corroborate identity");
+    if (result.sourceKind !== "government-report-identity-only") {
+      assert.ok(result.identity.some(value => digits(value).includes(digits(guide.phone))), "phone must corroborate identity");
+    } else {
+      assert.ok(!result.identity.some(value => digits(value).includes(digits(guide.phone))), "historical government attribution is not a phone verification");
+    }
   }
 });
 
@@ -71,4 +80,12 @@ test("government licensed fishing guide must match all identity clues in ONE off
     row + row,
     "<script>Capt.Steve Barnes Guide Servic (940)841-0910 Steve L Barnes</script>",
   ]) assert.equal(officialFishingGuideSingleRowMatches(html, proof), false);
+});
+
+test("Adventure Texoma is distinct from similarly named Adventure Texoma Outdoors", () => {
+  const proof = sourceForFishingGuideReview(guides.find(g => g.slug === "adventure-texoma-guide")).identity;
+  const matching = "<tr><td>Adventure Texoma</td><td>(903)744-6169</td><td>Lake Texoma</td></tr>";
+  const unrelated = "<tr><td>Adventure Texoma Outdoors</td><td>(903)814-5566</td><td>Lake Texoma</td></tr>";
+  assert.equal(officialFishingGuideSingleRowMatches(matching + unrelated, proof), true);
+  assert.equal(officialFishingGuideSingleRowMatches(unrelated, proof), false);
 });

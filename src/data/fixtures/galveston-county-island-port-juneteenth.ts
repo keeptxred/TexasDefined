@@ -26,6 +26,8 @@ export const galvestonCountyIslandPortJuneteenthArticle: Article = {
   featured: false,
   internalLinks: [
     { href: "/county/brazoria", label: "Explore Brazoria County", description: "Compare barrier-island landscapes with Surfside and Brazoria County's coastal wetlands." },
+    { href: "/city/alvin", label: "Alvin railroad heritage", description: "Compare Galveston’s port and rail history with Alvin’s restored 1907 depot on the mainland." },
+    { href: "/destination/alvin-historical-museum", label: "Alvin Historical Museum", description: "Explore mainland agricultural and railroad history in a former federal post office with a restored New Deal mural." },
     { href: "/county/chambers", label: "Explore Chambers County", description: "Look across Galveston Bay toward Anahuac and its coastal-prairie heritage." },
     { href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas: the full history", description: "Follow BB-35 from its 1914 commissioning through both World Wars and the current Galveston restoration." },
     { href: "/destination/battleship-texas", label: "Battleship Texas restoration and visitor status", description: "See the current closure notice, future Pier 15 home and planning guidance." },

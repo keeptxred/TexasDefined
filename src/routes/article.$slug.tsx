@@ -429,7 +429,7 @@ export const Route = createFileRoute("/article/$slug")({
         ? [{ "@type": "ListItem", position: 2, name: "Texas Explained", item: `${siteUrl}/texas-explained` }]
         : [
             { "@type": "ListItem", position: 2, name: department.name, item: `${siteUrl}${department.path}` },
-            ...(department.usesExploreCategory ? [{ "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${article.category}` }] : []),
+            ...(department.usesExploreCategory ? [{ "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}${article.category === "events" ? "/events" : `/explore/${article.category}`}` }] : []),
           ]),
       { "@type": "ListItem", position: isTexasExplainedCollectionArticle ? 3 : department.usesExploreCategory ? 4 : 3, name: article.title, item: articleUrl },
     ];
@@ -532,7 +532,7 @@ function ArticlePage() {
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
   const isCaminoRealArticle = article.slug === "el-camino-real-de-tierra-adentro-national-historic-trail";
   const foliageHeroRights = imageRights;
-  const hideGenericRelatedRail = article.slug === "hill-country-fall-colors" || article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
+  const hideGenericRelatedRail = article.slug === "texas-state-railroad-rusk-palestine-history-guide" || article.slug === "hill-country-fall-colors" || article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
   const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
   const showFootballTravelOffers = isFootballTravelPlanningArticle(article) && !shouldNoindexTexasGatewayArticle(article);
@@ -747,6 +747,6 @@ function ArticlePage() {
         <a href={foliageHeroRights?.license} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">CC BY 2.0 license (image adapted for layout) ↗</a>
       </nav>
     </Container></Section>}
-    {!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedWithDistinctHeroImages(related, article).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
+    {!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedWithDistinctHeroImages(related, article).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && (article.category === "events" ? <Link to="/events" className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link> : <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>)}</div></nav></Container></Section>}
   </article>;
 }

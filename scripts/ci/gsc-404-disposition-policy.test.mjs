@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import { readFileSync, readdirSync } from 'node:fs';
 import {
   INTENTIONAL_404_DISPOSITIONS,
+  NOV26_GSC_404_ALIASES, NOV26_GSC_404_TEMPLATE,
   RESTORE_REQUIRED_GSC_PATHS,
   RESTORED_GSC_CANONICAL_PATHS,
   INDEXABLE_RESTORED_GSC_PATHS,
@@ -223,4 +224,31 @@ test('Googlebot-specific robots meta and X-Robots-Tag are cumulative, even when 
   assert.equal(observed('/city/del-rio', 200, 200, { robots: directHeader }).review, 'restore-regression');
   const indexable = collectGscRobotsDirectives('<meta name="robots" content="index, follow">');
   assert.equal(observed('/city/del-rio', 200, 200, { robots: indexable }).review, 'served-200');
+});
+
+
+test('November 26 six new exact examples do not alter the frozen 99-path audit', () => {
+  assert.equal(Object.keys(NOV26_GSC_404_ALIASES).length, 5);
+  for (const [source, target] of Object.entries(NOV26_GSC_404_ALIASES)) {
+    assert.ok(!inventory.includes(source));
+    const url = 'https://texasdefined.com' + target;
+    const options = { finalUrl: url, canonical: url };
+    assert.equal(observed(source, 301, 200, options).review, 'served-200');
+    assert.equal(observed(source, 404, 404).review, 'restore-regression');
+    assert.equal(observed(source, 302, 200, options).review, 'restore-regression');
+    assert.equal(observed(source, 301, 200, {...options, canonical: 'https://texasdefined.com/'}).review, 'restore-regression');
+    if (!source.startsWith('/texas-high-school-football-isds/')) assert.equal(observed(source, 301, 200, {...options, robots: 'noindex'}).review, 'restore-regression');
+  }
+  assert.ok(!inventory.includes(NOV26_GSC_404_TEMPLATE));
+  assert.equal(observed(NOV26_GSC_404_TEMPLATE, 404, 404, {invalidTemplate:true}).review, 'expected-404');
+});
+
+
+test('complete November 26 owner export contains 103 exact distinct paths covered by the protected 105-path union', () => {
+  const current = readFileSync('ops/seo/gsc-404-2026-11-26-paths.txt', 'utf8').split(/\r?\n/).filter(l => l.startsWith('/'));
+  assert.equal(current.length, 103);
+  assert.equal(new Set(current).size, 103);
+  assert.equal(current.filter(p => inventory.includes(p)).length, 97);
+  assert.deepEqual(current.filter(p => !inventory.includes(p)).sort(), [...Object.keys(NOV26_GSC_404_ALIASES), NOV26_GSC_404_TEMPLATE].sort());
+  assert.deepEqual(inventory.filter(p => !current.includes(p)).sort(), ['/city/del-rio', '/destination/fort-leaton-state-historic-site']);
 });

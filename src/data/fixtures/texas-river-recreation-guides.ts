@@ -126,6 +126,7 @@ export const riverRecreationGuideRecords = [
       ]
     ],
     "extraLinks": [
+      ["/fishing/species/warmouth","Warmouth identification and historical Comal record"],
       [
         "/county/comal",
         "Comal County"
@@ -144,6 +145,7 @@ export const riverRecreationGuideRecords = [
       ]
     ],
     "official": [
+      ["TPWD historical state fly-fishing records","https://tpwd.texas.gov/fishboat/fish/action/staterecords.php?age_group=all&browse=Go&env=FW&list=3"],
       [
         "New Braunfels Comal River guide",
         "https://www.newbraunfels.gov/comalriver"
@@ -290,6 +292,9 @@ export const riverRecreationGuideRecords = [
       ]
     ],
     "extraLinks": [
+      ["/fishing/species/guadalupe-bass","Identify Guadalupe bass"],
+      ["/fishing/species/largemouth-bass","Identify largemouth bass"],
+      ["/fishing/species/channel-catfish","Identify channel catfish"],
       [
         "/destination/south-llano-river-state-park",
         "South Llano River State Park"
@@ -312,6 +317,7 @@ export const riverRecreationGuideRecords = [
       ]
     ],
     "official": [
+      ["TPWD South Llano River County Road 150 angling access","https://tpwd.texas.gov/fishboat/fish/recreational/rivers/lease_access/south_llano.phtml"],
       [
         "TPWD South Llano park",
         "https://tpwd.texas.gov/state-parks/south-llano-river"

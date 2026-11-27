@@ -11,7 +11,7 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-11-06",
     endDate: "2026-11-06",
-    dateNote: "The 2026 Dobie Dichos storytelling event is November 6 in Oakville (not the old George West Storyfest seed). On October 29 the organizer listed Program + Meal as sold out; Program Only remained separately available, with $25 adult gate admission. Recheck the official ticket page because availability can change.",
+    dateNote: "The 2026 Dobie Dichos storytelling event was scheduled for November 6 in Oakville (not the old George West Storyfest seed). On October 29 the organizer listed Program + Meal as sold out; Program Only remained separately available, with $25 adult gate admission. The organizer describes Dobie Dichos as an annual event held on the first Friday in November.",
     venue: "Historic Oakville Jail",
     officialUrl: "https://www.dobiedichos.com/",
     sourceCheckedAt: "2026-10-29",

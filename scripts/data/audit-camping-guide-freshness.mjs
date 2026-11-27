@@ -69,6 +69,26 @@ for (const row of approvedSourceEvidence.approvals) {
   assert.ok(!reviewedSources.has(row.url), "Duplicate approved official camping URL");
   reviewedSources.set(row.url, row);
 }
+// Retain historical approvals, but supersede ONLY the three independently
+// reviewed URLs from the exact November 26 source-health artifact.
+const followUp = approvedSourceEvidence.followUp;
+assert.equal(followUp.reviewedAt, "2026-11-27");
+assert.equal(followUp.researchIssue, 7874);
+assert.equal(followUp.proof.runId, 45905533150);
+assert.equal(followUp.proof.artifactId, 15156889737);
+assert.equal(followUp.approvals.length, 3);
+const followUpUrls = new Set([
+  "https://tpwd.texas.gov/state-parks/lake-mineral-wells",
+  "https://tpwd.texas.gov/state-parks/cedar-hill",
+  "https://tpwd.texas.gov/state-parks/cooper-lake/alert",
+]);
+for (const row of followUp.approvals) {
+  assert.ok(followUpUrls.delete(row.url) && reviewedSources.has(row.url)
+    && /^[a-f0-9]{64}$/.test(row.sha256) && row.comparison?.length > 60,
+    "Unreviewed or duplicated follow-up camping source");
+  reviewedSources.set(row.url, {...row, reviewedAt: followUp.reviewedAt});
+}
+assert.equal(followUpUrls.size, 0);
 const hasExactReviewedSource = (url, digest) =>
   Boolean(digest && reviewedSources.get(url)?.sha256 === digest &&
     reviewedSources.get(url).reviewedAt <= new Date().toISOString().slice(0, 10));

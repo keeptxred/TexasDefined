@@ -19,7 +19,7 @@ const expandedDetails: ExpandedDetails[] = [
       { title: "Use transit when practical", body: "Fair Park traffic and parking demand are unusually heavy on rivalry Saturday. Check the current Dallas-area transit and event transportation guidance before committing to a driving plan." },
     ],
     relatedLinks: [
-      { href: "/state-fair-of-texas", label: "State Fair of Texas guide", description: "Plan the fair portion of Red River weekend." },
+      { href: "/texas-state-fair", label: "State Fair of Texas guide", description: "Plan the fair portion of Red River weekend." },
       { href: "/browse/counties#county-dallas", label: "Explore Dallas County", description: "Build a broader Dallas trip around the game." },
       { href: "/events", label: "Texas events calendar", description: "Compare other major Texas sports and fall events." },
     ],

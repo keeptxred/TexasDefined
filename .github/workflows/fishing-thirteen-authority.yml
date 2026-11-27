@@ -87,7 +87,7 @@ jobs:
         run: node scripts/ci/check-fishing-13-source-state.mjs
       - id: tpwd_species
         if: ${{ steps.source_scope.outputs.review == 'true' }}
-        name: Check nine new TPWD fish identity and biology source pages
+        name: Check 22 species identities and supplemental TPWD evidence without changing source dates
         run: node scripts/ci/check-fishing-species-tpwd-sources.mjs
       - name: Open deduplicated official source investigation issue
         if: ${{ failure() && (steps.tpwd.conclusion == 'failure' || steps.tpwd_species.conclusion == 'failure') }}
@@ -100,5 +100,5 @@ jobs:
           count="$(gh issue list --repo "$GH_REPO" --state open --search 'Fishing authority official TPWD source review' --json number --jq 'length')"
           if [[ "$count" == "0" ]]; then
             gh issue create --repo "$GH_REPO" --title 'Fishing authority official TPWD source review required' \
-              --body 'Scheduled source verification could not confirm one or more official TPWD regulations, reservoir technique examples, lake alerts, paused report availability signatures or one of the nine newly added freshwater fish fact sheets. Investigate the failed run, confirm the affected reservoir evidence, report publication state, active fishing rules and Lake Abilene closure against TPWD, update code and evidence only after factual verification, then rerun. Do not stamp unchanged source dates from a link-only check.'
+              --body 'Scheduled source verification could not confirm one or more official TPWD regulations, reservoir technique examples, lake alerts, paused report availability signatures or the 22 TPWD freshwater fish fact sheets or supplemental evidence sources for all 28 published guides. Investigate the failed run, confirm the affected reservoir evidence, report publication state, active fishing rules and Lake Abilene closure against TPWD, update code and evidence only after factual verification, then rerun. Do not stamp unchanged source dates from a link-only check.'
           fi

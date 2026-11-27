@@ -23,12 +23,12 @@ const records: MultiWindowMajorEventAuthorityRecord[] = [
     endDate: "2027-02-14",
     venue: "Downtown Austin",
     officialUrl: "https://youraustinmarathon.com/",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The Ascension Seton Austin Marathon, Half Marathon & 5K brings tens of thousands of runners into downtown Austin for a course that passes major city landmarks and finishes near the Texas Capitol, making race weekend a significant Travis County sports and travel event.",
     planningSections: [
-      { title: "The main February 14 races begin at 7 a.m.", body: "The current event website lists 7 a.m. Sunday, February 14, 2027 as the race start, with marathon, half marathon and 5K registration options. Its 2027 focus includes a 50% discount for eligible active-duty and retired U.S. military members, administered through organizer registration terms; do not promise the discount without confirming eligibility." },
+      { title: "The full and half marathon waves start at 7 a.m.; the 5K starts at 9 a.m.", body: "The dated February 14, 2027 schedule begins full and half marathon waves at 7 a.m. Full-marathon runners must start in waves 1–6, through 7:20 a.m.; later waves are half-marathon only. The 5K starts at 9 a.m.; wheelchair and elite distance-race start times remain TBD. Its 2027 focus includes a 50% discount for eligible active-duty and retired U.S. military members, administered through organizer registration terms; do not promise the discount without confirming eligibility." },
       { title: "Plan downtown access before race morning", body: "The course moves through central Austin and the organizer publishes traffic, staging and start-wave guidance. Recheck the race-weekend transportation information before driving into downtown because normal Sunday access patterns do not apply." },
-      { title: "Use the full weekend schedule", body: "Packet pickup is scheduled Friday and Saturday, with a Friday shakeout run and the races on Sunday. Runners should build travel around the official pickup window instead of arriving on race morning without materials." },
+      { title: "Use the full weekend schedule", body: "Local packet pickup is Thursday February 11, 10 a.m.–2 p.m. (no expo). Friday pickup is 11 a.m.–6:50 p.m.; Saturday pickup is 9 a.m.–5:50 p.m. The expo closes ten minutes after pickup each day. There is no Sunday packet pickup. Course closure is scheduled for 12:30 p.m. for the half and 2:20 p.m. for the full; use the organizer’s pace requirements and traffic guidance." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Extend race weekend into a broader Austin and Travis County visit." },

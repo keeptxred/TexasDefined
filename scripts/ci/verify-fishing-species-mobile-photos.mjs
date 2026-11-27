@@ -4,7 +4,7 @@
  * Checks actual visitor Chrome layout + real photo decoding, not just img tags.
  */
 import { createRequire } from "node:module";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 const { chromium } = createRequire(import.meta.url)(
   process.env.PLAYWRIGHT_CORE_PATH || "/tmp/td-fish-species-chrome/node_modules/playwright-core",
 );
@@ -30,6 +30,14 @@ const newFish = new Set([
   "bowfin", "common-carp", "spotted-gar", "redear-sunfish", "green-sunfish",
   "warmouth", "longear-sunfish", "redbreast-sunfish", "rio-grande-cichlid",
 ]);
+const identificationSource = await readFile("src/data/fishing/species-identification.ts", "utf8");
+const identificationMarker = "export const fishIdentification: Record<string, FishIdentification> = ";
+const fieldGuides = JSON.parse(identificationSource.split(identificationMarker)[1].split(";\n")[0]);
+const authoritySource = await readFile("src/data/fishing/species-authority-notes.ts","utf8");
+const authorityNotes = JSON.parse(authoritySource.split("export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = ")[1].split(";\n")[0]);
+const officialSources = JSON.parse(authoritySource.split("export const FISH_AUTHORITY_SOURCES = ")[1].split(" as const;")[0]);
+const expectedLookalikeLinks = Object.values(fieldGuides)
+  .reduce((count, guide) => count + (guide.compareSlugs ?? []).length, 0);
 const results = [];
 await mkdir(OUT, { recursive: true });
 const browser = await chromium.launch({
@@ -97,6 +105,7 @@ try {
           const heroCreditContrast = contrast.length ? (Math.max(...contrast) + 0.05) / (Math.min(...contrast) + 0.05) : 0;
           return {
             heroPhotoPresent, heroCreditContrast,
+            title: document.title, description: document.querySelector('meta[name="description"]')?.content || "", canonical: document.querySelector('link[rel="canonical"]')?.href || "", robots: document.querySelector('meta[name="robots"]')?.content || "",
             h1Count: h1.length, h1: h1[0]?.innerText || "",
             horizontalOverflow: document.documentElement.scrollWidth - innerWidth,
             hasViewportMeta: /width\s*=\s*device-width/i.test(document.querySelector('meta[name="viewport"]')?.content || ""),
@@ -118,7 +127,28 @@ try {
         if (content.horizontalOverflow > 12) row.failures.push("horizontal_overflow_" + content.horizontalOverflow);
         if (!content.links.some(l => l.href === ORIGIN + "/fishing/species")) row.failures.push("directory_navigation_missing");
         if (!content.links.some(l => l.href.startsWith("https://tpwd.texas.gov/"))) row.failures.push("TPWD_source_link_missing");
+        const authority=authorityNotes[slug];
+        if(!authority) row.failures.push("authority_note_missing_in_registry");
+        else {
+          if(!content.title.includes(authority.title)) row.failures.push("species_specific_title_missing");
+          if(content.description!==authority.description) row.failures.push("species_specific_description_missing");
+          if(!content.headings.includes("Texas fishing: where to start") || !content.text.includes(authority.guidance)) row.failures.push("practical_guidance_not_rendered");
+          for(const key of [authority.source,...(authority.extraSources??[]),"limits","advisories"])
+            if(!content.links.some(link=>link.href===officialSources[key].url)) row.failures.push("official_evidence_link_missing_"+key);
+          for(const target of authority.related)
+            if(!content.links.some(link=>link.href===ORIGIN+"/fishing/species/"+target)) row.failures.push("related_species_link_missing_"+target);
+          for(const target of authority.lakes)
+            if(!content.links.some(link=>link.href===ORIGIN+"/fishing/lakes/"+target)) row.failures.push("historical_waterbody_link_missing_"+target);
+        }
+        if(content.canonical!==ORIGIN+path || /noindex/i.test(content.robots)) row.failures.push("canonical_or_indexability");
         if (fish22.has(slug)) {
+          const comparisons = fieldGuides[slug]?.compareSlugs ?? [];
+          row.lookalikeGuideLinks = comparisons.length;
+          for (const compareSlug of comparisons) {
+            const href = ORIGIN + "/fishing/species/" + compareSlug;
+            if (!content.links.some(link => link.href.split(/[?#]/)[0] === href && link.text.includes("Compare with")))
+              row.failures.push("verified_lookalike_link_not_rendered_" + compareSlug);
+          }
           const required = ["How to Identify ", "Look for these markings", "Compare with similar fish", "Size in the field guide", "Texas waters and habitat", "On-the-water approach"];
           for (const phrase of required) if (!content.headings.some(h => h.includes(phrase))) row.failures.push("identification_section_missing_" + phrase.replaceAll(" ", "_"));
           const fishImages = content.images.filter(i => i.alt.toLowerCase().includes(slug.replaceAll("-", " ").split(" ")[0]));
@@ -161,7 +191,8 @@ try {
 const failures = results.filter(r => r.failures.length);
 const report = { generatedAt: new Date().toISOString(), origin: ORIGIN, run: process.env.GITHUB_RUN_ID || null,
   tested: results.length, expected: 37, failed: failures.length, fish22: fish22.size,
-  note: "Browser, layout, and image decode checks; not a human editorial review or Google ranking grade.",
+  expectedLookalikeLinks,
+  note: "Browser, layout, curated lookalike links and image decode checks; not a human editorial review or Google ranking grade.",
   results,
 };
 await writeFile(OUT + "/report.json", JSON.stringify(report, null, 2) + "\n");

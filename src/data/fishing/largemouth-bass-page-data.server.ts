@@ -3,9 +3,10 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
 import { isFishingCurrentlyClosed } from "./operational-closures";
-import { fishingFoundationAnchor } from "./slugs";
+import { fishingFoundationAnchor, isCompleteFishingSpeciesSlug } from "./slugs";
 import { largemouthBassEditorialProfile } from "./species-profiles";
-import { fishIdentification, FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT } from "./species-identification";
+import { fishIdentification } from "./species-identification";
+import { FISH_AUTHORITY_NOTES, FISH_AUTHORITY_SOURCES, FISH_AUTHORITY_EDITORIAL_UPDATED_AT } from "./species-authority-notes";
 import { fishingSpeciesCanonicalPath } from "./species-routing";
 
 const qualityScore = { excellent: 40, good: 30, fair: 20, poor: 10, unknown: 0 } as const;
@@ -13,12 +14,13 @@ const prominenceScore = { primary: 6, secondary: 3, present: 1 } as const;
 const canonicalPath = fishingSpeciesCanonicalPath("largemouth-bass");
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 // Actual bass editorial/operating-closure revision, not underlying source verification.
-const BASS_GUIDE_EDITORIAL_UPDATED_AT = FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT;
+const BASS_GUIDE_EDITORIAL_UPDATED_AT = FISH_AUTHORITY_EDITORIAL_UPDATED_AT;
+const bassAuthorityNote = FISH_AUTHORITY_NOTES["largemouth-bass"];
 
 function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargemouthBassPageData>>) {
   const url = `${siteUrl}${canonicalPath}`;
   const { species, profile } = pageData;
-  const webPage = { "@type": "WebPage", "@id": url, url, name: "Largemouth Bass Fishing in Texas", description: profile.overview, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: BASS_GUIDE_EDITORIAL_UPDATED_AT, citation: profile.sources.map((source) => source.url) };
+  const webPage = { "@type": "WebPage", "@id": url, url, name: bassAuthorityNote.title, description: bassAuthorityNote.description, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: BASS_GUIDE_EDITORIAL_UPDATED_AT, citation: [...new Set([...profile.sources.map((source) => source.url), ...([bassAuthorityNote.source, ...(bassAuthorityNote.extraSources ?? [])].map(key => FISH_AUTHORITY_SOURCES[key].url))])] };
   const speciesEntity = { "@type": "Thing", "@id": `${url}#species`, name: species.commonName, alternateName: species.aliases, description: species.summary, sameAs: profile.sources[0]?.url };
   const breadcrumb = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
@@ -27,7 +29,7 @@ function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargem
     { "@type": "ListItem", position: 4, name: "Largemouth bass", item: url },
   ] };
   return {
-    meta: buildMeta(texasDefinedBrand, { title: "Largemouth Bass Fishing in Texas — Seasons, Tactics & Best Lakes", description: "Fish largemouth bass across Texas with source-backed habitat, seasonal patterns, techniques, tackle, lures, documented lake quality tiers, regulations and verified guide listings.", canonicalPath }),
+    meta: buildMeta(texasDefinedBrand, { title: bassAuthorityNote.title, description: bassAuthorityNote.description, canonicalPath }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPage, speciesEntity, breadcrumb] }) }],
   };
@@ -71,10 +73,15 @@ async function buildLargemouthBassPageData() {
     .filter((row) => Boolean(row.advertiser));
 
   const regions = [...new Set(rankedLakes.map((row) => row.lake.region))];
+  const comparisonGuides = (fishIdentification["largemouth-bass"].compareSlugs ?? [])
+    .map((compareSlug) => allSpecies.find((candidate) => candidate.slug === compareSlug))
+    .filter((candidate) => candidate && isCompleteFishingSpeciesSlug(candidate.slug))
+    .map((candidate) => ({ name: candidate!.commonName, href: fishingFoundationAnchor("species", candidate!.slug) }));
   return {
     species,
     profile: largemouthBassEditorialProfile,
     identification: fishIdentification["largemouth-bass"],
+    comparisonGuides,
     rankedLakes,
     recommendedTechniques,
     relatedSpecies,

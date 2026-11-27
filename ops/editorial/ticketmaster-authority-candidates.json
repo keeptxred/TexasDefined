@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-24T22:09:07.509Z",
+  "fetchedAt": "2026-11-26T20:13:39.201Z",
   "candidates": [
     {
       "name": "Big 12 Football Championship",
@@ -575,6 +575,30 @@
       "publicationAllowed": false
     },
     {
+      "name": "San Antonio Stock Show & Rodeo Followed By Clint Black",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-23"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rn9Bwe"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-23-2027/event/3A006507AA5FAC82"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
       "name": "San Antonio Stock Show & Rodeo Followed by Flatland Cavalry",
       "city": "San Antonio",
       "dates": [
@@ -734,6 +758,30 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-12-2027/event/3A006507AA0AABB9"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "San Antonio Stock Show & Rodeo Followed By Sara Evans",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-22"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rnpQsW"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-22-2027/event/3A006507AA59AC7D"
       ],
       "status": "requires-organizer-verification",
       "evidence": {

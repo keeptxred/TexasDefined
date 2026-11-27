@@ -242,7 +242,7 @@ assert(sourceAudit.includes('Lake Abilene Closures') && sourceAudit.includes('sw
 assert(advisories["lake-abilene"]?.sourceUrl === "https://tpwd.texas.gov/state-parks/abilene/alert/", "Lake Abilene directory warning must point directly to the official TPWD alert.");
 assert(advisories["lake-abilene"]?.verifiedAt && advisories["lake-abilene"]?.notice.includes("fishing"), "Lake Abilene restriction requires a dated, explicit visible warning.");
 assert(advisories["fort-parker-state-park-lake"]?.sourceUrl === "https://tpwd.texas.gov/state-parks/fort-parker/alert", "Fort Parker launch closure must cite the official TPWD alert.");
-assert(advisories["fort-parker-state-park-lake"]?.verifiedAt === "2026-11-15" && /Navasota River boat ramp closed October 19, 2026 through January 10, 2027/.test(advisories["fort-parker-state-park-lake"]?.notice || ""), "Fort Parker advisory must retain the dated river-ramp closure and no unsupported reopening.");
+assert(advisories["fort-parker-state-park-lake"]?.verifiedAt === "2026-11-26" && /Navasota River boat ramp closed October 19, 2026 through January 10, 2027/.test(advisories["fort-parker-state-park-lake"]?.notice || ""), "Fort Parker advisory must retain the dated river-ramp closure and no unsupported reopening.");
 assert(sourceAudit.includes("isFortParker") && sourceAudit.includes("matchesFortParkerAlertText(text)")
   && fortParkerMatcher.includes("Navasota River boat ramp")
   && fortParkerMatcher.includes("Both fishing piers are closed")

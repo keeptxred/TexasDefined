@@ -24,6 +24,7 @@ type FishId =
   | "largemouth-bass"
   | "smallmouth-bass"
   | "spotted-bass"
+  | "alabama-bass"
   | "guadalupe-bass"
   | "crappie"
   | "catfish"
@@ -666,14 +667,14 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
   },
   {
     slug: "alan-henry-reservoir", name: "Alan Henry Reservoir", accessReviewedAt: "2026-10-12", tpwdSlug: "alan_henry", waterDataSlug: "alan-henry", region: "panhandle",
-    summary: "A deep reservoir south of Lubbock with trophy-capable largemouth bass, spotted bass, crappie and catfish.",
+    summary: "A deep reservoir south of Lubbock with trophy-capable largemouth bass, Alabama bass, crappie and catfish.",
     surfaceAcres: 2880, maxDepthFeet: 100, impoundedYear: 1993, counties: ["Garza", "Kent"], nearestCities: ["Lubbock", "Justiceburg", "Post"],
     waterway: "Double Mountain Fork Brazos River", riverBasin: "Brazos River Basin", authority: "City of Lubbock", conservationPool: "2,220 ft msl", fluctuation: "Moderate, roughly 2–4 feet per year", clarity: "Murky to clear, roughly 1–4 feet visibility",
-    identity: "Alan Henry is one of West Texas' highest-value bass destinations, with a strong trophy largemouth reputation and a distinctive Alabama-spotted-bass component.",
+    identity: "Alan Henry is one of West Texas' highest-value bass destinations, with a strong trophy largemouth reputation and a distinctive introduced Alabama bass population.",
     habitat: ["Flooded trees provide much of the reservoir's primary fish cover.", "Steep shoreline and deep water make electronics and depth control important.", "Upper coves support much of the crappie habitat."],
     fish: [
       fish("largemouth-bass","Largemouth bass","good","spring","The lake has a long trophy-bass identity and multiple ShareLunker-class fish.",["soft-plastics","crankbaits","spinnerbaits"]),
-      fish("spotted-bass","Spotted bass","good","year-round","Alabama-spotted-bass stockings created a high-catch secondary black-bass fishery.",["crankbaits","soft-plastics"]),
+      fish("alabama-bass","Alabama bass","good","year-round","TPWD’s angling table uses the legacy spotted bass label; its 2021 survey identifies the introduced population as Alabama bass. The Good grade is the legacy table rating, not evidence of Micropterus punctulatus.",["crankbaits","soft-plastics"]),
       fish("crappie","Crappie","poor","spring","Crappie are most abundant in upper-lake coves and suitable cover.",["jigs-and-minnows"]),
       fish("catfish","Catfish","good","year-round","Channel and flathead catfish round out the reservoir's major targets.",["cut-bait","live-bait"]),
     ],

@@ -10,7 +10,7 @@ const records: MajorEventAuthorityRecord[] = [
     startDate: "2026-10-09", endDate: "2026-10-11",
     venue: "Tyler Pounds Regional Airport",
     officialUrl: "https://www.rosecityairfest.com/",
-    sourceCheckedAt: "2026-10-17",
+    sourceCheckedAt: "2026-11-27",
     dateNote: "The official 2026 show was October 9–11; public flying-day tickets covered Saturday October 10 or Sunday October 11. The next edition's dates have not been verified by the organizer.",
     whyItMatters: "Rose City Airfest is Tyler's major military and heritage aviation experience, with flying demonstrations, static aircraft, a community fundraiser and a dedicated Friday evening Hangar Party. It supports CampV and East Texas military veterans. The most recent confirmed show ran October 9–11, 2026; details below are about that edition and must not be recycled into an unannounced future schedule.",
     quickFacts: [
@@ -21,7 +21,7 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Next organizer dates", value: "Not yet confirmed" },
     ],
     planningSections: [
-      { title: "Understand the two different ticket experiences", body: "The 2026 organizer separated the Friday Hangar Party from the weekend public air show. Friday's dinner and performer meet-and-greet required a separate ticket, while Saturday and Sunday each had date-specific public general-admission tickets. A general ticket did not automatically admit a visitor to the Hangar Party. No ticket from 2026 should be promoted for the next edition." },
+      { title: "Understand the two different ticket experiences", body: "The 2026 organizer separated the Friday Hangar Party from the weekend public air show. Friday's dinner and performer meet-and-greet required a separate ticket, while Saturday and Sunday each had date-specific public general-admission tickets. A general ticket did not automatically admit a visitor to the Hangar Party. No ticket from 2026 should be promoted for the next edition. The archived Friday party began at 5 p.m.; on both flying days, gates opened at 9 a.m., static-aircraft viewing ended at 11 a.m. and the flying program began at noon. The next edition has no verified timetable." },
       { title: "General parking is away from the airport", body: "The official 2026 visitor map located general public parking at 13974 Highway 64 West, Tyler, across from Lifepoint Church, with free shuttles from each parking lot. Accessible parking was on the airport grounds by the Historic Aviation Memorial Museum, approached from Airport Drive, with accessible shuttle service. A future year's traffic pattern must be verified again." },
       { title: "Watch the correct day and refund rules", body: "The 2026 organizers specified that Saturday or Sunday admission was valid only for the selected day. Advance prices rose as ticket inventory changed; day-of gate prices were separate. They described the fundraiser as rain-or-shine with final, generally nonrefundable ticket sales. Always check current-year prices, availability, age categories and cancellation coverage directly with the show." },
       { title: "Prepare for limited shade and accessible seating", body: "General admission included festival grounds and static displays, plus open-air viewing where personal lawn chairs or blankets were welcome. Shaded cover was limited. The FAQ allowed mobility devices and strollers but prohibited coolers and pets other than service animals. Complimentary water was offered during the 2026 show; check what is provided next time." },
@@ -35,6 +35,7 @@ const records: MajorEventAuthorityRecord[] = [
     sources: [
       { label: "Rose City Airfest official 2026 dates and roster", url: "https://www.rosecityairfest.com/" },
       { label: "Official 2026 tickets, seating and refund terms", url: "https://www.rosecityairfest.com/tickets/airshow" },
+      { label: "Official archived 2026 event timetable", url: "https://www.rosecityairfest.com/info/schedule/" },
       { label: "Official 2026 parking and shuttle map", url: "https://www.rosecityairfest.com/info/map/" },
       { label: "Official 2026 accessible travel and prohibited items", url: "https://www.rosecityairfest.com/info/faq/" },
     ],

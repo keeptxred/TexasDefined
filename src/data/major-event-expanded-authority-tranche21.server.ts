@@ -72,7 +72,7 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The 44th Annual Tejano Conjunto Festival was May 14–17, 2026, and is complete. The Guadalupe Cultural Arts Center has not verified a 2027 edition's dates in its current festival announcement; do not roll dates forward from an unverified calendar.",
     venue: "Royal Palace Ballroom and Rosedale Park",
     officialUrl: "https://guadalupeculturalarts.org/tejano-conjunto-festival/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The Tejano Conjunto Festival en San Antonio is the country's first and longest-running conjunto festival, bringing major artists, heritage performers, students and international audiences together around one of South Texas' defining musical traditions.",
     quickFacts: [
       { label: "Last edition", value: "May 14–17, 2026 (completed)" },
@@ -85,8 +85,8 @@ const records: MajorEventAuthorityRecord[] = [
     planningSections: [
       { title: "Understand the opening dance and park concerts", body: "The completed 2026 festival opened with a free seniors dance Thursday May 14 at Royal Palace Ballroom, 3506 Southwest Military Drive. The main three-day concerts ran May 15–17 at Rosedale Park. These are different locations, formats and admission arrangements." },
       { title: "Use the Guadalupe Cultural Arts Center as the primary source", body: "The nonprofit organizer posts the artist schedule, event-specific admission and ticket link for each edition. It currently retains a detailed 44th annual 2026 program; do not assume those artists, ticket types or dates are confirmed for 2027." },
-      { title: "See how conjunto heritage is passed to younger performers", body: "The 2026 schedule included youth ensembles, school performers and established conjunto bands. Visitors interested in regional music history can choose daytime student showcases as well as evening headliners instead of assuming every act is a commercial touring concert." },
-      { title: "Make an outdoor music plan for Rosedale Park", body: "The multi-stage weekend is an outdoor experience with daytime heat and potentially late performances. Bring permitted sun protection, check the official site's accessibility and seating rules and allow time for music, food and artist changes." },
+      { title: "See how conjunto heritage is passed to younger performers", body: "The 2026 program honored the late Flaco Jiménez; its poster competition recognized Mission artist Rudy Valdez for depicting accordionist Mingo Saldivar, a 2022 NEA National Heritage Fellow. Saturday featured school groups and student champions, and Sunday included Guadalupe Cultural Arts Center and Conjunto Heritage Taller students. These are documented examples of the festival's educational role, not a confirmed 2027 lineup." },
+      { title: "Make an outdoor music plan for Rosedale Park", body: "The 2026 park concerts took place at 303 Dartmouth Street; the outdoor program extended from afternoon to late evening. Bring permitted sun protection, check the official site's accessibility and seating rules and allow time for music, food and artist changes." },
       { title: "Keep the West Side and downtown destinations separate", body: "The Guadalupe Cultural Arts Center's offices and Rosedale Park are not interchangeable venues. Use the announced festival site for directions and combine the festival with San Antonio history or West Side food stops only when travel time makes sense." },
       { title: "Understand ticket availability before monetizing", body: "The organizer's 2026 festival used an official Eventive ticket page, while the seniors dance was free. Do not present old 2026 admission links or unverified Ticketmaster/Viator inventory as a current ticket offer." },
     ],

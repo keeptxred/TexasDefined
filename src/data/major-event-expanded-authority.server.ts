@@ -114,15 +114,16 @@ const expandedDetails: ExpandedDetails[] = [
     slug: "amigo-airsho",
     whyItMatters: "El Paso's Amigo Airsho brings military aviation and high-performance flying to Biggs Army Airfield at Fort Bliss. Because it takes place on a military installation, the base-access rules, ticket type, traffic plan and arrival time are all central to the visit—not minor details.",
     quickFacts: [
-      { label: "2026 dates", value: "October 24–25" },
+      { label: "Last confirmed dates", value: "October 24–25, 2026 (completed)" },
       { label: "Airfield", value: "Biggs Army Airfield, Fort Bliss" },
-      { label: "Admission / access", value: "Ticket required; review ID requirements for entry to Fort Bliss" },
-      { label: "Daily program", value: "Gates at 9 a.m.; aerial show approximately 11:30 a.m.–4:30 p.m., subject to change" },
+      { label: "Admission / access", value: "2026 event completed; check new official entry and ticket terms" },
+      { label: "2026 program (historical)", value: "Gates at 9 a.m.; aerial show approximately 11:30 a.m.–4:30 p.m., subject to change" },
     ],
     planningSections: [
-      { title: "Check military-base access before purchasing or driving", body: "This show is on Fort Bliss. The organizer's current visitor FAQ requires guests to bring a valid government-issued ID for entry on October 24–25, 2026. Review all current entry, vehicle and prohibited-item rules and allow for security checks; admission alone is not the same thing as permission to ignore base-entry procedures." },
-      { title: "Choose the exact day and ticket type", body: "The organizer sells its own tickets. Check the 2026 ticket page for current availability, age rules, permitted purchases and any premium admission. Do not assume that Ticketmaster tickets or a third-party reseller are accepted." },
-      { title: "Time your arrival around the aerial program", body: "The official visitor FAQ lists gates opening at 9 a.m., aerial performances beginning approximately 11:30 a.m. and ending at 4:30 p.m., with the site closing at 5 p.m. All timings and demonstration aircraft can change for weather and operations." },
+      { title: "Check military-base access before purchasing or driving", body: "This show is on Fort Bliss. The organizer's archived FAQ required government-issued identification for the completed October 24–25, 2026 show. No 2027 date or visitor access plan is confirmed. Review all current entry, vehicle and prohibited-item rules and allow for security checks; admission alone is not the same thing as permission to ignore base-entry procedures." },
+      { title: "Choose the exact day and ticket type", body: "The 2026 ticket page and purchase instructions are historical. Wait for a new organizer announcement and verify the dated checkout, age rules and ticket categories. Do not assume that Ticketmaster tickets or a third-party reseller are accepted." },
+      { title: "Time your arrival around the aerial program", body: "For the completed 2026 edition, the official visitor FAQ listed gates opening at 9 a.m., aerial performances beginning approximately 11:30 a.m. and ending at 4:30 p.m., with the site closing at 5 p.m. All timings and demonstration aircraft can change for weather and operations." },
+      { title: "Explore year-round aviation education", body: "The nonprofit organizer also runs Blueprint to Your Future, a speaker series for middle and high school students, and Fly HigHER, a mentoring and hands-on aviation initiative. The organizer states that applications for its 30-person 2026 class are closed; check directly for later opportunities rather than assuming admission is part of an airshow ticket." },
       { title: "Make an El Paso weekend of it", body: "Add nearby El Paso attractions only after allowing adequate time for installation entry and post-show traffic. Consider an overnight stay rather than attempting a long late-night return after the flying program." },
     ],
     relatedLinks: [
@@ -133,7 +134,8 @@ const expandedDetails: ExpandedDetails[] = [
     sources: [
       { label: "Amigo Airsho 2026 official dates", url: "https://www.amigoairsho.com/home" },
       { label: "Amigo Airsho 2026 tickets", url: "https://www.amigoairsho.com/tickets" },
-      { label: "Amigo Airsho entry rules and FAQ", url: "https://www.amigoairsho.com/faqs" },
+      { label: "Amigo Airsho archived 2026 visitor FAQ", url: "https://www.amigoairsho.com/faqs" },
+      { label: "Organizer STEAM education programs", url: "https://www.amigoairsho.com/steam-initiatives" },
     ],
   },
   {
@@ -176,7 +178,7 @@ const expandedDetails: ExpandedDetails[] = [
     ],
     planningSections: [
       { title: "Do not drive directly to airport parking", body: "The Commemorative Air Force Highland Lakes Squadron states that general-public parking is not available at the airport. Read its current parking/shuttle guidance and plan the drop-off or departure arrangement before starting your trip to Burnet." },
-      { title: "Check advance tickets and age categories", body: "The official 2027 site is already offering advance tickets with adult, youth, senior, military and young-child categories. Prices and availability can change. Use the show's official sales links rather than assuming there is an approved Ticketmaster listing." },
+      { title: "Check advance tickets and age categories", body: "The linked TicketSignup page confirms the 35th annual show on March 20, 2027, but its registration step reported sales closed on November 27, 2026. Older date and admission text remains on the organizer site. Do not treat a Buy Tickets button alone as verified availability; wait for the updated 2027 checkout and age categories." },
       { title: "Weather and refunds", body: "The organizer says tickets are nonrefundable if weather prevents or interrupts the airshow." },
       { title: "Keep the flying lineup current", body: "The official website prominently recaps the 2026 aircraft and performers. Those are historical highlights, not a verified 2027 lineup. Check for a current-year flying roster as the March event approaches." },
       { title: "Plan the rest of Burnet County", body: "Tie the show to Burnet, local museums and Highland Lakes drives. If booking a hotel, compare Burnet-area availability first without claiming that any unverified property is within walking distance." },
@@ -186,7 +188,7 @@ const expandedDetails: ExpandedDetails[] = [
       { href: "/county/burnet", label: "Explore Burnet County", description: "Make a weekend of the Highland Lakes visit." },
       { href: "/event/wings-over-cowtown-airshow", label: "Wings Over Cowtown", description: "Compare a spring 2027 North Texas aviation weekend." },
     ],
-    sources: [{ label: "Official CAF Highland Lakes Squadron Bluebonnet Airshow 2027 information", url: "https://www.bluebonnetairshow.com/" }],
+    sources: [{ label: "Official CAF Highland Lakes Squadron Bluebonnet Airshow 2027 information", url: "https://www.bluebonnetairshow.com/" }, { label: "Organizer-linked dated 2027 registration and ticket status", url: "https://www.ticketsignup.io/TicketEvent/BluebonnetAirshow" }],
   },
   {
     slug: "wings-over-cowtown-airshow",

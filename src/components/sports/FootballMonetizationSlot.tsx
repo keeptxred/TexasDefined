@@ -17,7 +17,7 @@ export function FootballMonetizationSlot({ surfacePath, hasSponsor }: {
             <h2 className={isKaty ? 'mt-1 font-display text-lg' : 'mt-2 font-display text-2xl'}>Reach Texas high-school football families</h2>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">Founding placements start at $9/month, subject to available inventory, approval and agreement. Local businesses can request a clearly labeled, editorially independent placement on this page. Sponsorship does not imply school approval, rankings, or guaranteed clicks.</p>
           </div>
-          <a href={inquiry} className="inline-flex min-h-11 items-center justify-center border border-primary px-4 py-3 text-sm font-semibold text-primary" data-football-sponsor-interest="true">Sponsor this page →</a>
+          <a href={inquiry} className="inline-flex min-h-11 items-center justify-center border border-primary px-4 py-3 text-sm font-semibold text-primary" data-football-sponsor-interest="true" rel="nofollow">Sponsor this page →</a>
         </div>
       )}
       {!isKaty && <div className="mt-3 flex flex-wrap items-center justify-between gap-4 border border-border p-4 sm:p-6">

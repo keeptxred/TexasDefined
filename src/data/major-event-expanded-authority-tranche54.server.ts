@@ -263,12 +263,12 @@ const records: MajorEventAuthorityRecord[] = [
     countyName: "Travis County",
     region: "hill-country",
     category: "food",
-    startDate: "2026-10-17",
-    endDate: "2026-10-18",
+    startDate: "2027-09-25",
+    endDate: "2027-09-26",
     venue: "Palmer Events Center, 900 Barton Springs Road",
     officialUrl: "https://www.austincoffeefestival.com/",
-    sourceCheckedAt: "2026-10-21",
-    dateNote: "The organizer's October 17–18, 2026 festival is complete. Its site has not published confirmed 2027 dates.",
+    sourceCheckedAt: "2026-11-27",
+    dateNote: "The organizer confirms the sixth Austin Coffee Festival September 25–26, 2027 at Palmer Events Center. Its linked Eventbrite listing matches both dates; October 17–18, 2026 is the completed previous edition.",
     whyItMatters: "Austin Coffee Festival puts specialty roasters, tasting and cafe culture inside Palmer Events Center, making it a distinct culinary gathering worth covering alongside wine and barbecue. Visitors must choose a dated session ticket, and an indoor venue changes the planning considerations compared with outdoor festivals.",
     quickFacts: [
       {
@@ -281,21 +281,21 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         label: "Admission format",
-        value: "Timed session and day-specific ticket, per 2026 organizer"
+        value: "Day-specific timed session; verify selected checkout"
       },
       {
         label: "Weather",
         value: "Indoor event"
       },
       {
-        label: "Future edition",
-        value: "Await new dates from organizer"
+        label: "Confirmed next edition",
+        value: "September 25–26, 2027"
       }
     ],
     planningSections: [
       {
         title: "Book the correct tasting session",
-        body: "For 2026, the organizer required separate day and session choices, with tasting service ending 15 minutes before a session closed. Attendees could not simply move between sessions; verify future ticket policies and any age or child-admission restrictions before purchasing."
+        body: "The current official ticket conditions require a separate day and session selection, end tasting service 15 minutes before session close and allow refunds only until 30 days before the event. Session transfers are discretionary and unavailable within 48 hours of the start. Exact prices and current inventory require checkout; confirm age and child-admission rules."
       },
       {
         title: "Know what the indoor ticket covers",
@@ -333,9 +333,10 @@ const records: MajorEventAuthorityRecord[] = [
         url: "https://www.austincoffeefestival.com/"
       },
       {
-        label: "Festival official session ticket conditions",
+        label: "Festival official 2027 session ticket conditions",
         url: "https://www.austincoffeefestival.com/tickets"
       },
+      { label: "Organizer-linked 2027 festival checkout", url: "https://www.eventbrite.com/e/austin-coffee-festival-tickets-2003627940105" },
       {
         label: "Official Palmer Events Center venue information",
         url: "https://www.austincoffeefestival.com/venue"

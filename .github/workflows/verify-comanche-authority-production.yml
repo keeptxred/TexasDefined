@@ -31,3 +31,35 @@ jobs:
         env:
           COMANCHE_PUBLIC_ORIGIN: https://texasdefined.com
         run: node scripts/ci/verify-comanche-authority-production.mjs
+
+  verify-comanche-browser:
+    # One browser process covers the three detailed guides at two viewport widths.
+    # Never certify a skipped or superseded deployment.
+    needs: verify-comanche-live
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install isolated Chrome drivers
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-comanche-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 axe-core@4.10.3
+      - name: Verify responsive layout, accessibility, canonicals and links
+        env:
+          COMANCHE_PUBLIC_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-comanche-responsive-browser.mjs
+      - name: Retain browser report and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: comanche-responsive-browser-qa
+          path: artifacts/comanche-browser/
+          if-no-files-found: warn
+          retention-days: 30

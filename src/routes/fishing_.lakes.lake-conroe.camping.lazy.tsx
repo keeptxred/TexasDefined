@@ -96,8 +96,10 @@ function LakeConroeCamping() {
       <section aria-labelledby="conroe-camp-planning" className="mt-16 border-t border-border pt-8">
         <h2 id="conroe-camp-planning" className="font-display text-3xl">Choose the right overnight plan</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Check the posted reservation and vehicle rules for Cagle before booking a specific electric campsite. Stubblefield's first-come policy means a listing is not a reserved space; have a backup. Scott's Ridge does not permit overnight camping, even though its boat ramp appears in lake-access directories. For boating, check the lake-level and ramp information separately from these campground descriptions.</p>
+        <h3 className="mt-8 font-display text-2xl">Connected Texas fishing and travel guides</h3>
+        <p className="mt-3 text-sm text-muted-foreground">Match your overnight base to the lake access, fishing rules and nearby forest recreation you plan to use.</p>
         <div className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-          {regionLinks.map(item=><a key={item.href} href={item.href} className="font-medium underline decoration-border underline-offset-4 hover:decoration-primary">{item.name} →</a>)}
+          {[...neighboring.filter(link => link.href !== canonicalPath), ...regionLinks].map(item=><a key={item.href} href={item.href} className="font-medium underline decoration-border underline-offset-4 hover:decoration-primary">{item.name} →</a>)}
         </div>
       </section>
       <section aria-labelledby="conroe-camp-sources" className="mt-16 border-t border-border pt-8">

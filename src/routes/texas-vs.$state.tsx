@@ -162,7 +162,7 @@ function TexasVsStatePage() {
           <div><p className="eyebrow text-primary">Moving from {name} to Texas</p><h2 className="mt-2 font-display text-3xl md:text-4xl">Turn this comparison into a move plan</h2></div>
           <div>
             <p className="max-w-3xl leading-8 text-muted-foreground">Keep {name} as the origin in My Texas Move, then choose the Texas city or metro, model the one-time move, compare the recurring household budget and carry the same plan into schools, utilities, property taxes and exact-address research.</p>
-            <a href={`/moving-to-texas?originState=${encodeURIComponent(name)}#relocation-command-center`} className="mt-5 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Build My Texas Move plan →</a>
+            <a href={`/moving-to-texas?originState=${encodeURIComponent(name)}#relocation-command-center`} className="mt-5 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4" rel="nofollow">Build My Texas Move plan →</a>
             <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
               <Link to="/compare-texas-cities" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Compare Texas cities</Link>
               <Link to="/texas-moving-cost-calculator" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Estimate moving costs</Link>

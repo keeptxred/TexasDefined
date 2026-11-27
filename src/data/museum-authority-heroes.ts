@@ -12,10 +12,10 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
   },
   // TexasDefined-created interpretive illustration, not a representation or photo of the building.
   "comanche-county-historical-museum": {
-    src: "/images/comanche-county-historical-museum-editorial.svg",
-    alt: "Original Comanche County Historical Museum editorial exhibit illustration, with saloon mirror and blacksmith tools; not an actual museum photograph",
-    width: 1600, height: 1000,
-    credit: "TexasDefined original editorial artwork · not a museum photograph",
+    src: "/images/comanche-museum-hero.avif",
+    alt: "AI-generated editorial illustration of a saloon mirror, saddle, blacksmith tools and Texas prairie; not a photograph of the museum or its exhibits",
+    width: 1586, height: 992,
+    credit: "TexasDefined · AI-generated editorial illustration · not a museum photograph",
   },
   "austin-county-jail-museum-bellville": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin_County_Old_Jail_and_Museum_Bellville_Wiki_(1_of_1).jpg?width=1600",

@@ -100,9 +100,14 @@ export function CorporateEventCategoryGuides() {
                 <span className="text-muted-foreground"> · {provider.city} · {provider.maxGroup == null ? 'Group capacity unverified' : 'Published limit ' + provider.maxGroup}</span>
               </li>)}
             </ul>
-            <a href={'/corporate-events?city=Texas&guests=45&type=' + value} className="mt-5 inline-flex min-h-11 items-center border border-primary px-4 text-sm font-semibold text-primary">
-              Compare Texas {label.toLowerCase()} options →
-            </a>
+            <form action="/corporate-events" method="get" className="mt-5">
+              <input type="hidden" name="city" value="Texas" />
+              <input type="hidden" name="guests" value="45" />
+              <input type="hidden" name="type" value={value} />
+              <button type="submit" className="inline-flex min-h-11 items-center border border-primary px-4 text-sm font-semibold text-primary">
+                Compare Texas {label.toLowerCase()} options →
+              </button>
+            </form>
           </article>;
         })}
       </div>

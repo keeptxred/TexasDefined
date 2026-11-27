@@ -91,6 +91,11 @@ if (partnerQueryTests.status !== 0) {
 // the live response has already been fixed. Guard these exact owner-inspected
 // examples in a scheduled production probe, not just in a generic parent check.
 for (const url of [
+  '/events?venue=sports-venue%3Adickies-arena&start=2026-10-29&end=2026-10-29',
+  '/corporate-events?city=Texas&guests=45&type=outdoor-adventure',
+  '/fishing/seasons?season=winter',
+  '/fishing/plan?species=%5B%22hybrid-striped-bass%22%5D&view=map',
+  '/fishing/plan?species=hybrid-striped-bass&view=map',
   '/texas-property-tax-estimator?county=bailey',
   '/corporate-events?city=Dallas&guests=45&type=company-parties',
   '/corporate-events?city=Abilene&guests=45&type=company-parties',
@@ -99,25 +104,28 @@ for (const url of [
 ]) {
   requireText(gscProductionProbe, '["' + url + '",', 'Missing exact Google-selected legacy URL production acceptance: ' + url);
 }
-// Owner canonical audit: all five clean parents and the five historical query views
+// Owner canonical audit: all seven clean parents and the historical query views
 // must retain bounded live HTTP, meta/header, schema and sitemap acceptance.
-for (const parent of ['/events', '/texas-property-tax-estimator', '/corporate-events', '/moving-to-texas', '/partner-with-us']) {
+for (const parent of ['/events', '/texas-property-tax-estimator', '/corporate-events', '/moving-to-texas', '/partner-with-us', '/fishing/plan', '/fishing/seasons']) {
   requireText(publicRoutes, '"' + parent + '"', 'Clean canonical must remain in indexable public route registry: ' + parent);
   requireText(gscProductionProbe, '["' + parent + '",', 'Clean canonical omitted from production probe: ' + parent);
 }
 requireText(gscProductionProbe, 'redirect: "manual"', 'Live canonical probe must not silently follow redirects.');
+requireText(gscProductionProbe, 'actual.href === expected.href', 'Planner scalar alias normalization must validate the exact destination before following.');
+requireText(gscProductionProbe, 'species/map view lost', 'Planner filter and map must survive normalization.');
+requireText(gscProductionProbe, 'partner prefill lost', 'Partner query must retain its functional prefill.');
 requireText(gscProductionProbe, 'response.status === 200', 'Live canonical probe must require HTTP 200.');
 requireText(gscProductionProbe, 'httpCanonicalLinks(response.headers.get("link")', 'Live canonical probe must inspect HTTP Link canonical headers.');
 requireText(gscProductionProbe, 'response.headers.get("x-robots-tag")', 'Live canonical probe must inspect X-Robots-Tag directives.');
 requireText(gscProductionProbe, 'ogCanonicalUrls(html)', 'Live canonical probe must inspect social canonical URL metadata.');
 requireText(gscProductionProbe, 'queryBearingPageSchemaUrls(html, preferred)', 'Live canonical probe must inspect page JSON-LD URLs.');
-requireText(gscProductionProbe, 'await verifyPrimarySitemap()', 'Live canonical probe must verify five parent sitemap entries and absence of query URLs.');
+requireText(gscProductionProbe, 'await verifyPrimarySitemap()', 'Live canonical probe must verify seven parent sitemap entries and absence of query URLs.');
 requireText(gscProductionProbe, 'filtered calendar has a contradictory index directive', 'Filtered event production probe must reject simultaneous index and noindex directives.');
 requireText(sitemap, 'normalizePublicPath(entry.path)', 'Primary sitemap must reject query parameters and malformed canonical paths.');
 requireText(gscProductionProbe, 'links.length === 1', 'Production acceptance must assert exactly one canonical');
 requireText(gscProductionProbe, 'links[0] === origin + preferred', 'Production acceptance must verify clean parent canonical');
 requireText(postDeployGscWorkflow, 'run: node scripts/ci/verify-gsc-manual-next-production.mjs', 'Protected postdeploy GSC acceptance must retain the ten priority authority URLs and sitemap');
-requireText(postDeployGscWorkflow, 'run: node scripts/ci/verify-gsc-alternates-production.mjs', 'Protected postdeploy GSC acceptance must run the nine-case legacy canonical verification');
+requireText(postDeployGscWorkflow, 'run: node scripts/ci/verify-gsc-alternates-production.mjs', 'Protected postdeploy GSC acceptance must run the expanded legacy canonical verification');
 // GSC 'Alternate page with proper canonical tag' samples are intentional filter
 // and planner prefill URLs, not 500 missing articles. Keep the clean landing
 // canonical and prevent the events calendar from publishing thousands of
@@ -144,6 +152,31 @@ for (const forbidden of ['<a href={calendarView.previousHref}', '<a href={calend
 }
 if (sitemap.includes('/events?') || exploreSitemap.includes('/events?') || sitemap.includes('/corporate-events?')) {
   failures.push('Do not list filtered event or corporate event URLs in the sitemap.');
+}
+
+// Preserve visitor prefill URLs while discouraging crawl discovery of noncanonical
+// tool states. Do not apply nofollow to the ordinary canonical editorial links.
+for (const [path, expectedCount] of [
+  ['src/components/content/EntityDepthSections.tsx', 1],
+  ['src/routes/texas-vs.$state.tsx', 1],
+  ['src/components/sports/FootballMonetizationSlot.tsx', 1],
+  ['src/routes/sports-venues.tsx', 1],
+  ['src/routes/sports-venue.$slug.tsx', 1],
+  ['src/components/fishing/FishingHub.tsx', 1],
+  ['src/components/fishing/GenericFishingLakeGuide.tsx', 2],
+  // Two real prefill links remain; empty-fishery duplicate CTA was removed.
+  ['src/components/fishing/FishingSpeciesProfile.tsx', 2],
+  ['src/routes/horse-racing.lazy.tsx', 1],
+  ['src/routes/events.$collection.lazy.tsx', 1],
+  ['src/routes/things-unique-to-texas_.$category.lazy.tsx', 1],
+  ['src/routes/texas-industries.lazy.tsx', 1],
+  ['src/components/business/StartBusinessTexasGuide.tsx', 1],
+]) {
+  const tags = fs.readFileSync(path, 'utf8').match(/<a\b[^>]*>/g) || [];
+  const prefills = tags.filter(tag => /href=(?:\{(?:cityRelocationHref|finderHref|inquiry)\}|["'`{][^>]*\/(?:partner-with-us|moving-to-texas|fishing\/plan)\?)/.test(tag));
+  if (prefills.length < expectedCount || prefills.some(tag => !/\brel="nofollow"/.test(tag))) {
+    failures.push('Preserve nofollow on noncanonical visitor prefills: ' + path);
+  }
 }
 
 if (failures.length) {

@@ -1070,3 +1070,22 @@ test('transient HTTP 5xx retry is bounded and never accepts challenge, 4xx, pers
   assert.match(category,/response\.status!==200/,'cannot accept a non-200 authority page');
   assert.match(category,/hasNoindex\(html/,'metadata validation retained');
 });
+
+test('historical asset seeds rotate among recent successful protected main releases only', async () => {
+  const { selectRecentVerifiedAssetSeeds } = await import('./select-recent-verified-asset-seeds.mjs');
+  const now = Date.parse('2026-11-27T14:30:00Z');
+  const valid = {id:45919811518,head_sha:'1d4a7e53790eefc9f6f4153d316d2d6ee83a2869',
+    head_repository:{full_name:'keeptxred/TexasDefined'},head_branch:'main',
+    path:'.github/workflows/deploy-production.yml',event:'workflow_dispatch',
+    status:'completed',conclusion:'success',created_at:'2026-11-27T00:58:00Z'};
+  const bad = [
+    {conclusion:'failure'}, {event:'pull_request'}, {head_branch:'feature'},
+    {head_repository:{full_name:'other/TexasDefined'}}, {head_sha:'bad'},
+    {created_at:'2026-11-23T00:00:00Z'}, {created_at:'2026-11-28T00:00:00Z'},
+    {path:'.github/workflows/other.yml'}, {status:'in_progress'},
+  ].map((change,i)=>({...valid,id:100+i,...change}));
+  assert.deepEqual(selectRecentVerifiedAssetSeeds({workflow_runs:[...bad,valid]},now),
+    [{id:valid.id,sha:valid.head_sha}]);
+  assert.deepEqual(selectRecentVerifiedAssetSeeds({workflow_runs:[valid]},now,String(valid.id)),[]);
+  assert.throws(()=>selectRecentVerifiedAssetSeeds({},now));
+});

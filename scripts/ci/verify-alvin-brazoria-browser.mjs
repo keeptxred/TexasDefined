@@ -51,6 +51,10 @@ try {
           await page.waitForTimeout(1500);
           await page.locator('h1').first().waitFor({state:'visible',timeout:30000});
         }
+        // DCL can precede the external stylesheet, especially for a page
+        // without hydration. Check the actual rendered layout after load,
+        // while retaining DCL in the timing report.
+        await page.waitForLoadState('load', {timeout:30000});
         report.details = await page.evaluate(() => {
           const schemas = [...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(el => {
             const parsed = JSON.parse(el.textContent);
@@ -85,12 +89,61 @@ try {
           const matching = page.locator('img[src*="' + id + '"]').first();
           assert.ok(await matching.count(), 'Missing archive photo ' + id);
           await matching.scrollIntoViewIfNeeded({timeout:15000});
-          if (mode.javaScriptEnabled) await matching.evaluate(el => el.decode());
-          else await page.waitForTimeout(1000);
+          // Native image requests can take longer than one second even when
+          // page JavaScript is disabled. Playwright can still inspect DOM state.
+          // Require actual decoded image pixels and meaningful alt in every mode.
+          assert.ok((await matching.getAttribute('alt'))?.trim(), 'Missing archive photo alt ' + id);
+          // Poll from the Node runner, not page.waitForFunction: its injected
+          // animation-frame polling does not resolve with JavaScript disabled,
+          // even when the image has completed (confirmed in run 46010599010).
+          const deadline = Date.now() + 20000;
+          let state;
+          do {
+            state = await matching.evaluate(el => ({src:el.currentSrc, complete:el.complete, width:el.naturalWidth, loading:el.loading}));
+            if (state.complete && state.width > 0) break;
+            await new Promise(resolve => setTimeout(resolve, 250));
+          } while (Date.now() < deadline);
+          assert.ok(state.complete && state.width > 0, 'Archive photo failed to load ' + id + ': ' + JSON.stringify(state));
           assert.ok(await matching.evaluate(el=>el.complete && el.naturalWidth > 0 && !!el.alt), 'Broken archive photo or missing alt ' + id);
         }
         assert.ok(d.bodyText.includes('DeGolyer Library') && d.bodyText.includes('No known copyright restrictions'), 'Archive provenance');
-        assert.ok(d.scrollWidth <= d.viewport + 3, 'Horizontal overflow');
+        if (target.path === '/county/brazoria' && mode.javaScriptEnabled) {
+          const region = page.getByRole('region', { name: 'County property tax rates table', exact: true });
+          await region.waitFor({state:'visible',timeout:25000});
+          const rows = region.locator('tbody tr');
+          const count = await rows.count();
+          assert.ok(count > 0, 'Hydrated county rate table has no rows');
+          const headers = await region.locator('thead th').allTextContents();
+          assert.equal(headers.length, 5, 'Tax table column headers');
+          await region.focus();
+          assert.equal(await region.evaluate(el => el === document.activeElement), true, 'Tax table keyboard focus');
+          const rates = await rows.locator('td:nth-child(2)').allTextContents();
+          assert.ok(rates.some(rate => /[0-9]+\.[0-9]{6}/.test(rate)), 'No numeric county rate');
+          report.taxTable = { countyRows: count, headers, rates, focusable: true };
+        }
+        if (target.path === '/county/brazoria' && !mode.javaScriptEnabled && process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+          assert.ok(d.bodyText.includes('Interactive rate tables load when JavaScript is available'), 'Missing meaningful tax SSR fallback');
+        }
+        if (target.path === '/city/alvin' && process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+          for (const marker of ['118 S. Magnolia', '200 Depot Centre Boulevard','300 W. Sealy','6:30 a.m. to 10:30 p.m.','designated parking']) assert.ok(d.bodyText.includes(marker), 'Missing municipal logistics ' + marker);
+          assert.ok(d.links.includes('https://www.alvin.gov/482/Park-Rules'), 'Missing municipal rules link');
+        }
+        report.accessibility = await page.evaluate(() => ({
+          landmarks: [...document.querySelectorAll('main,nav,header,footer,[role=main],[role=navigation]')].map(el => ({tag:el.tagName,role:el.getAttribute('role'),label:el.getAttribute('aria-label')})),
+          headings: [...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].map(el => ({level:Number(el.tagName.slice(1)),text:el.innerText.trim()})),
+          unnamedControls: [...document.querySelectorAll('button,a[href],input:not([type=hidden]),select,textarea')].filter(el => el.getClientRects().length && !(el.getAttribute('aria-label') || el.getAttribute('aria-labelledby') || el.getAttribute('title') || el.innerText?.trim() || el.querySelector('img[alt]')?.alt || el.labels?.length)).map(el=>({tag:el.tagName,href:el.getAttribute('href'),id:el.id}))
+        }));
+        // Recheck after the lazy gallery has been revealed. Retain both
+        // measurements; do not accept persistent overflow at either point.
+        d.finalLayout = await page.evaluate(() => ({
+          viewport: innerWidth, scrollWidth: document.documentElement.scrollWidth,
+          offenders: [...document.querySelectorAll('body *')].map(el => {
+            const rect = el.getBoundingClientRect();
+            return {tag:el.tagName, id:el.id, className:typeof el.className === 'string' ? el.className.slice(0,200) : '', right:Math.round(rect.right), width:Math.round(rect.width)};
+          }).filter(el => el.right > innerWidth + 3 && el.width > 0).sort((a,b)=>b.right-a.right).slice(0,12)
+        }));
+        assert.ok(d.scrollWidth <= d.viewport + 3 && d.finalLayout.scrollWidth <= d.finalLayout.viewport + 3,
+          'Horizontal overflow ' + JSON.stringify({initial:{viewport:d.viewport,scrollWidth:d.scrollWidth},final:d.finalLayout}));
         assert.deepEqual(d.missingAlt, [], 'Missing image alt attributes');
         assert.deepEqual(errors, [], 'Uncaught client errors');
         // Record network failures for diagnosis; fail on any failed first-party
@@ -115,5 +168,16 @@ try {
 } finally {
   await browser.close();
   await writeFile(output+'/report.json',JSON.stringify({checkedAt:new Date().toISOString(),workerVersion,sourceSha:process.env.GITHUB_SHA,labOnly:true,reports},null,2));
+}
+// Verify sitemap coverage independently of browser mode, against live XML.
+for (const [path, sitemap] of targets.map(t => [t.path, t.schema === 'Museum' ? '/sitemap-explore.xml' : '/sitemap.xml'])) {
+  const response = await fetch(origin + sitemap);
+  assert.equal(response.status, 200, 'Sitemap HTTP status');
+  const xml = await response.text();
+  const rows = [...xml.matchAll(/<url(?:\s[^>]*)?>[\s\S]*?<\/url>/g)].map(m => m[0]).filter(row => row.includes('<loc>' + origin + path + '</loc>'));
+  assert.equal(rows.length, 1, 'Unique sitemap row ' + path);
+  const lastmod = rows[0].match(/<lastmod>([^<]+)<\/lastmod>/)?.[1];
+  assert.ok(lastmod && lastmod.slice(0,10) >= '2026-11-24', 'Sitemap lastmod ' + path);
+  console.log('PASS sitemap ' + path + ' ' + lastmod);
 }
 if (reports.length !== 9 || reports.some(r=>!r.passed)) process.exitCode = 1;

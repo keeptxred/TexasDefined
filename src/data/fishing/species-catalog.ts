@@ -20,6 +20,13 @@ const tpwdWildlifeIndex = speciesSource(
 
 const supplementalFishSpecies: FishSpecies[] = [
   {
+    id: "alabama-bass", brandId: BRAND, slug: "alabama-bass", status: "published",
+    verifiedAt: "2026-11-27",
+    sources: [speciesSource("tpwd-alan-henry-alabama-bass", "Texas Parks & Wildlife Department — Alan Henry Reservoir 2021 Survey Report", "https://tpwd.texas.gov/publications/pwdpubs/lake_survey/pwd_rp_t3200_1233/", "2026-11-27")],
+    commonName: "Alabama bass", scientificName: "Micropterus henshalli", taxonKind: "species", waterClass: "freshwater",
+    summary: "Alan Henry Reservoir's introduced black bass, distinguished from spotted bass in TPWD fisheries surveys. The lake's angling summary retains the older spotted-bass label; consult the survey and current rules.",
+  },
+  {
     id: "bowfin", brandId: BRAND, slug: "bowfin", status: "published",
     verifiedAt: "2026-11-15",
     sources: [speciesSource("tpwd-bowfin", "Texas Parks & Wildlife Department — Bowfin", "https://tpwd.texas.gov/huntwild/wild/species/bowfin/", "2026-11-15")],
@@ -221,7 +228,7 @@ export interface FishSpeciesFamilyDefinition {
 }
 
 export const fishSpeciesFamilies: FishSpeciesFamilyDefinition[] = [
-  { id: "black-bass", name: "Black bass", description: "Texas' largemouth, smallmouth, Guadalupe and spotted bass fisheries.", speciesSlugs: ["largemouth-bass", "smallmouth-bass", "guadalupe-bass", "spotted-bass"] },
+  { id: "black-bass", name: "Black bass", description: "Texas' largemouth, smallmouth, Guadalupe and spotted bass fisheries.", speciesSlugs: ["largemouth-bass", "smallmouth-bass", "guadalupe-bass", "spotted-bass", "alabama-bass"] },
   { id: "temperate-bass", name: "White, striped & hybrid bass", description: "Schooling and open-water bass fisheries, including spring white-bass runs and reservoir striped-bass fishing.", speciesSlugs: ["white-bass", "striped-bass", "hybrid-striped-bass"] },
   { id: "crappie", name: "Crappie", description: "Black and white crappie plus the statewide crappie fishing group used by lake relationships.", speciesSlugs: ["crappie", "black-crappie", "white-crappie"] },
   { id: "catfish", name: "Catfish", description: "Blue, channel and flathead catfish, plus the statewide catfish group used by lake relationships.", speciesSlugs: ["catfish", "blue-catfish", "channel-catfish", "flathead-catfish"] },

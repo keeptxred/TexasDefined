@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
+import { FishAuthorityNote } from "@/components/fishing/FishAuthorityNote";
 import { FishIdentificationSection } from "@/components/fishing/FishIdentificationSection";
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { getFishingFishImage } from "@/data/fishing/image-library";
@@ -78,7 +79,8 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
           </aside>
         </section>
 
-        <FishIdentificationSection speciesName={species.commonName} identification={pageData.identification} />
+        <FishIdentificationSection speciesName={species.commonName} identification={pageData.identification} comparisonGuides={pageData.comparisonGuides} />
+        <FishAuthorityNote slug={species.slug} />
 
         <section className="mt-16 border-t border-border pt-10" aria-labelledby="seasonal-patterns">
           <p className="eyebrow text-primary">Seasonal behavior</p>

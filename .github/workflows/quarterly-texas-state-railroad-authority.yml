@@ -2,13 +2,15 @@ name: Quarterly Texas State Railroad authority and source review
 
 on:
   schedule:
-    - cron: '23 14 5 1,4,7,10 *'
+    # Monthly operational-source review; historical chronology is also reviewed on each run.
+    - cron: '23 14 5 * *'
   workflow_dispatch:
   pull_request:
     paths:
       - '.github/workflows/quarterly-texas-state-railroad-authority.yml'
       - 'scripts/data/validate-texas-state-railroad-authority.mjs'
       - 'scripts/ci/verify-texas-state-railroad-production.mjs'
+      - 'scripts/ci/verify-railroad-rusk-browser.mjs'
       - 'src/data/fixtures/texas-state-railroad-rusk-palestine-history-guide.ts'
       - 'src/data/fixtures/lazy-historic-supporting.ts'
       - 'src/data/fixtures/anderson-county-palestine-railroads-piney-woods-texas.ts'
@@ -18,6 +20,10 @@ on:
       - 'src/data/curated-tourism-collections.ts'
       - 'src/data/museum-expansion-statewide-wave8.ts'
       - 'src/data/museum-authority-network.ts'
+      - 'src/data/museum-visitor-faqs.ts'
+      - 'src/components/editorial/MuseumDossierContent.tsx'
+      - 'src/data/region-authority-overviews.ts'
+      - 'public/images/editorial/texas-state-railroad-depot-schematic.svg'
       - 'src/data/museum-authority-heroes.ts'
       - 'src/data/major-event-expanded-authority-tranche58.server.ts'
       - 'src/data/fixtures/texas-explained-support-articles-2.ts'
@@ -36,7 +42,7 @@ concurrency:
 jobs:
   check-history-and-visitor-sources:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -46,27 +52,44 @@ jobs:
         run: |
           node --check scripts/data/validate-texas-state-railroad-authority.mjs
           node scripts/data/validate-texas-state-railroad-authority.mjs
+          node --check scripts/ci/verify-railroad-rusk-browser.mjs
       - name: Verify deployed railroad pages, links and sitemaps
         if: github.event_name != 'pull_request'
         run: |
           node --check scripts/ci/verify-texas-state-railroad-production.mjs
           node scripts/ci/verify-texas-state-railroad-production.mjs
-      - name: Open one quarterly editorial source-review ticket
+      - name: Verify actual Chrome layout, keyboard and licensed image delivery
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
+          test -n "$CHROME_BIN"
+          npm install --prefix /tmp/texasdefined-rail-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+          node scripts/ci/verify-railroad-rusk-browser.mjs
+      - name: Preserve browser evidence
+        if: always() && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: railroad-rusk-browser-${{ github.run_id }}
+          path: artifacts/railroad-rusk-browser/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Open one monthly editorial source-review ticket
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
-          quarter=$(( (10#$(date -u +%m) - 1) / 3 + 1 ))
-          title="Texas State Railroad authority source check: $(date -u +%Y) Q${quarter}"
+          title="Texas State Railroad authority source check: $(date -u +%Y-%m)"
           open_count="$(gh issue list --repo "${GITHUB_REPOSITORY}" --state open --search "in:title \"${title}\"" --json title --jq "[.[] | select(.title == \"${title}\")] | length")"
           if [[ "${open_count}" != "0" ]]; then
-            echo "The current quarter already has an open source-review ticket."
+            echo "The current month already has an open source-review ticket."
             exit 0
           fi
           cat > /tmp/railroad-review.md <<'EOF'
-          Quarterly editorial verification for `/article/texas-state-railroad-rusk-palestine-history-guide` and its county/destination cross-links.
+          Monthly operational and editorial verification for `/article/texas-state-railroad-rusk-palestine-history-guide` and its county/destination cross-links.
 
           - Recheck the [official excursion calendar and FAQ](https://texasstaterailroad.net/faq-2/): depot location, travel times, accessible boarding, operator, train assignments and seasonal excursions. Do not convert ticket availability into a guarantee.
           - Recheck [Union Pacific / Texas & Eastern freight interchange](https://www.up.com/shipping/short-line/lines/tsr) and confirm that the operating carrier and current cargo remain accurate.

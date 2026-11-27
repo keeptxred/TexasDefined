@@ -629,3 +629,18 @@ test('Nov18 d132 published Worker supplies only source-proven original assets af
       /Required published-Worker safety gate not successful|d132 Davis Hill asset history rejects altered run\/job\/failure|Failed deploy job includes unapproved or missing failure evidence/);
   }
 });
+
+
+test('exact Nov27 homepage cutoff failure supplies only proven original assets after strict source fix', () => {
+  const exact = {runId: 46009980394, jobId: 140542710392, failure: 'Verify updated homepage HTML on canonical and direct Worker'};
+  const result = qualifyPriorDeployJob(evidence(exact));
+  assert.equal(result.mode, 'exact-nov27-homepage-cutoff-original-assets-only');
+  assert.equal(result.requiredSourceSha, '2f64dd4bb1f872edada23c29ce31cdb442d6751f');
+  assert.equal(result.requiredWorkerVersion, 'c085b2b2-303e-4ad9-aa1e-772156fafb95');
+  assert.equal(result.priorReleaseStillFailed, true);
+  assert.equal(result.criticalChecks, required.length);
+  assert.deepEqual(result.permittedFailures, [exact.failure]);
+  for (const mutation of [{runId: exact.runId+1}, {jobId: exact.jobId+1}, {failure: 'Verify base production surfaces'}, {additional: ['Verify base production surfaces']}, ...required.map(omit=>({omit}))]) {
+    assert.throws(()=>qualifyPriorDeployJob(evidence({...exact,...mutation})), /Required published-Worker safety gate not successful|Nov27 original asset handoff rejects altered run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+});

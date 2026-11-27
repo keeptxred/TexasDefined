@@ -41,6 +41,8 @@ export const majorEventSchemaEnrichmentBatch16: MajorEventSchemaEnrichment[] = [
   {
     slug: "us-mens-clay-court-championships",
     sources: [
+      { label: "Official 2027 qualifying and main-draw session schedule", url: "https://www.mensclaycourt.com/schedules.html" },
+      { label: "Organizer November 17 first 2027 player commitment", url: "https://www.mensclaycourt.com/tiafoe-first-to-commit-for-2027.html" },
       { label: "U.S. Men’s Clay Court Championship official site", url: "https://www.mensclaycourt.com/" },
       { label: "U.S. Men’s Clay Court Championship official FAQ", url: "https://www.mensclaycourt.com/faqs.html" },
     ],

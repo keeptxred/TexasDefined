@@ -41,7 +41,7 @@ export function GenericFishingLakeGuide({
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{lake.name} Fishing Guide</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{lake.summary}</p>
         <div className="mt-8 flex flex-wrap gap-5 text-sm">
-          <a href={`/fishing/plan?q=${encodeURIComponent(lake.name)}`} className="border-b border-ink-foreground pb-1 font-semibold">Find fish at {lake.name} →</a>
+          <a href={`/fishing/plan?q=${encodeURIComponent(lake.name)}`} className="border-b border-ink-foreground pb-1 font-semibold" rel="nofollow">Find fish at {lake.name} →</a>
           <a href="/fishing/compare" className="border-b border-ink-foreground/50 pb-1">Compare fishing lakes →</a>
           <a href="/fishing/regulations" className="border-b border-ink-foreground/50 pb-1">Fishing regulations →</a>
           <a href="/shop/fishing-shirts" className="border-b border-ink-foreground/50 pb-1">Texas fishing shirts →</a>
@@ -85,7 +85,7 @@ export function GenericFishingLakeGuide({
             <div className="flex flex-wrap items-start justify-between gap-4"><h3 className="font-display text-2xl"><a href={fishingFoundationAnchor("species", fish.slug)} className="hover:text-primary">{fish.commonName}</a></h3><span className="border border-border px-3 py-1.5 text-xs">{titleCase(relation.quality)}</span></div>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{relation.notes || fish.summary}</p>
             {relation.seasonalPatterns.length ? <div className="mt-5 space-y-3">{relation.seasonalPatterns.slice(0, 2).map((pattern, index) => <p key={`${pattern.season}-${index}`} className="text-sm leading-6"><strong>{titleCase(pattern.season)}:</strong> <span className="text-muted-foreground">{pattern.summary}</span></p>)}</div> : null}
-            <div className="mt-5 flex flex-wrap gap-4"><a href={fishingFoundationAnchor("species", fish.slug)} className="border-b border-primary pb-1 text-sm font-semibold text-primary">{fish.commonName} guide →</a><a href={`/fishing/plan?species=${fish.slug}`} className="border-b border-border pb-1 text-sm text-muted-foreground">Find other lakes →</a></div>
+            <div className="mt-5 flex flex-wrap gap-4"><a href={fishingFoundationAnchor("species", fish.slug)} className="border-b border-primary pb-1 text-sm font-semibold text-primary">{fish.commonName} guide →</a><a href={`/fishing/plan?species=${fish.slug}`} className="border-b border-border pb-1 text-sm text-muted-foreground" rel="nofollow">Find other lakes →</a></div>
           </article>; })}
         </div> : <p className="mt-7 max-w-3xl text-sm leading-7 text-muted-foreground">No verified lake-to-species relationship is published for this water yet. TexasDefined does not infer fish presence from nearby lakes.</p>}
       </section>

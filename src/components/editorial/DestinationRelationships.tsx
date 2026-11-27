@@ -146,7 +146,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     {isWhirlyBall ? <Section tone="surface"><Container><UnusualBusinessAuthorityPanel slug={destination.slug} /></Container></Section> : null}
     {topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} showUnusualBusinessAuthority={!isWhirlyBall} /></Suspense> : null}
-    <Suspense fallback={null}><MuseumAuthorityNetworkSection destination={destination} /></Suspense>
+    <Suspense fallback={null}><MuseumAuthorityNetworkSection destination={destination} includeDossier={destination.slug !== "heritage-center-cherokee-county-rusk"} /></Suspense>
     {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
     {!isMoodyGardens ? <DestinationAreaGuideSection destination={destination} /> : null}
 

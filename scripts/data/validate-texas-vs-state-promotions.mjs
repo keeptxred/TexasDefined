@@ -470,3 +470,30 @@ for (const marker of [
 }
 
 console.log(`Texas-vs state promotion validation passed (${expected.length} evidence-qualified states across ${batches.length} promotion waves).`);
+
+
+const completionPath = "src/data/texas-vs-state-evidence-completion.server.ts";
+const completion = read(completionPath);
+const completionStates = ["Illinois", "Arizona", "Arkansas", "Iowa", "Mississippi", "Nebraska", "Oklahoma", "Vermont", "Washington", "Wisconsin"].map(name => ({name, slug: name.toLowerCase()}));
+const completionHosts = new Set(["tax.illinois.gov", "www.census.gov", "www.bls.gov", "iemaohs.illinois.gov", "idot.illinois.gov", "azdor.gov", "dema.az.gov", "azdot.gov", "www.arkansasedc.com", "www.epa.gov", "ardot.gov", "revenue.iowa.gov", "homelandsecurity.iowa.gov", "iowadot.gov", "www.dor.ms.gov", "www.msema.org", "mdot.ms.gov", "revenue.nebraska.gov", "nema.nebraska.gov", "dot.nebraska.gov", "oklahoma.gov", "tax.vermont.gov", "vem.vermont.gov", "vtrans.vermont.gov", "dor.wa.gov", "mil.wa.gov", "www.wsdot.wa.gov", "www.revenue.wi.gov", "wem.wi.gov", "www.wisconsindot.gov"]);
+assertSameSet([...completion.matchAll(/^  "([^"]+)": \{/gm)].map(m=>m[1]), completionStates.map(x=>x.name), "existing KEEP evidence cohort");
+for (let i=0; i<completionStates.length; i++) {
+  const {name, slug}=completionStates[i];
+  if (expectedSlugs.includes(slug)) fail(name+" must not overlap historical promotion waves");
+  const block=stateBlock(completion,completionStates,i,completionPath);
+  const date=block.match(/reviewedAt: "(\d{4}-\d{2}-\d{2})"/)?.[1];
+  if (!date || !Number.isFinite(Date.parse(date)) || new Date(date).toISOString().slice(0,10)!==date || Date.parse(date)>Date.now()) fail(name+" invalid review date");
+  const words=requiredLensMarkers.reduce((total,lens,j)=>{
+    const start=block.indexOf(lens);
+    const end=block.indexOf(requiredLensMarkers[j+1]??"sources:",start+1);
+    if(start<0||end<=start) fail(name+" missing "+lens);
+    return total+block.slice(start,end).split(/\s+/).filter(Boolean).length;
+  },0);
+  if(words<180) fail(name+" evidence too thin");
+  const sources=[...block.matchAll(/url: "([^"]+)", topic: "(tax|housing|jobs|risk|transport)"/g)];
+  assertSameSet(sources.map(m=>m[2]),requiredTopics,name+" completion topics");
+  if(sources.length!==5) fail(name+" must have five primary sources");
+  for(const [,value] of sources){const url=new URL(value);if(url.protocol!=="https:"||!completionHosts.has(url.hostname)) fail(name+" unapproved source: "+value);}
+}
+if(!compactProfileServer.includes("TEXAS_VS_STATE_EVIDENCE_WAVE16[name] ?? TEXAS_VS_STATE_EVIDENCE_COMPLETION[name]")) fail("missing KEEP evidence fallback");
+console.log("Validated 10 additional existing KEEP profiles; 47 self-canonical comparison profiles have evidence.");

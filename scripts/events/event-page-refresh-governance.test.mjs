@@ -441,8 +441,14 @@ test('second organizer-review tranche preserves current 2027 dates and historica
     ['src/data/major-event-expanded-authority-tranche29.server.ts', 'gruene-music-wine-festival'],
   ];
   for (const [file, slug] of cases) {
-    assert.match(record(file, slug), /sourceCheckedAt: "2026-11-15"/,
-      'Actual editorial source review missing from ' + slug);
+    // A later substantive source review must not fail a historical baseline.
+    // Read only the actual record's date, never a later index row.
+    const actual = record(file, slug).match(/sourceCheckedAt: "([^"]+)"/)?.[1];
+    assert.ok(actual && /^\d{4}-\d{2}-\d{2}$/.test(actual) &&
+      Number.isFinite(Date.parse(actual)) &&
+      new Date(Date.parse(actual)).toISOString().slice(0, 10) === actual &&
+      actual >= '2026-11-15' && actual <= new Date().toISOString().slice(0, 10),
+      'Actual editorial source review missing or invalid for ' + slug);
   }
   const balloon = record(cases[0][0], 'great-texas-balloon-race');
   assert.match(balloon, /startDate: "2027-07-22"/);
@@ -530,4 +536,23 @@ test('pull-request source contracts do not share the pending live source review 
   assert.ok(concurrency.includes("format('pr-{0}', github.event.pull_request.number)"));
   assert.ok(concurrency.includes("|| 'live'"));
   assert.match(concurrency, /cancel-in-progress: false/);
+});
+
+
+test('Orange 2027 city-published program is not left in the historical or pending category', () => {
+  const records = fs.readFileSync(path.join(process.cwd(), 'src/data/major-event-expanded-authority-tranche52.server.ts'), 'utf8');
+  const orange = records.slice(records.indexOf('slug: "mardi-gras-on-the-sabine-orange"'));
+  const guide = orange.slice(0, orange.indexOf('\n  },'));
+  assert.match(guide, /startDate: "2027-01-30"/);
+  assert.match(guide, /endDate: "2027-01-30"/);
+  assert.match(guide, /2–10 p\.m\./);
+  assert.match(guide, /6 p\.m\. Krewe of Krewes/);
+  assert.match(guide, /601 W\. Division Street/);
+  assert.match(guide, /February 7, 2026 \(the completed previous festival\)/);
+  assert.match(guide, /registration form is still forthcoming/);
+  const hub = fs.readFileSync(path.join(process.cwd(), 'src/routes/events.mardi-gras.lazy.tsx'), 'utf8');
+  assert.ok(hub.indexOf('"slug": "mardi-gras-on-the-sabine-orange"') < hub.indexOf('const editorPending:'));
+  assert.doesNotMatch(hub.slice(hub.indexOf('const editorPending:'), hub.indexOf('type VerifiedAnnouncement')), /mardi-gras-on-the-sabine-orange/);
+  const auto = fs.readFileSync(path.join(process.cwd(), 'src/data/events/mardi-gras-auto-published.server.ts'), 'utf8');
+  assert.match(auto, /event\.startDate === fact\.startDate && event\.endDate === fact\.endDate/);
 });

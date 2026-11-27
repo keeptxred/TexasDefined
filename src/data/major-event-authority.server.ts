@@ -175,15 +175,15 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { label: "Schedule", value: "Confirm the specific performance date and livestock show" },
     ],
     planningSections: [
-      { title: "Start with the rodeo and concert you want", body: "The winter program includes different arena performances, entertainers and livestock activities across February. Choose your specific arena date first; do not assume a 2026 entertainer or admission promotion returns in 2027." },
-      { title: "Distinguish arena seats from the grounds", body: "The Frost Bank Center is the rodeo arena while many exhibits, shops and attractions use the nearby Freeman Coliseum grounds. Ticket packages can differ; review exactly what the official checkout includes for an arena performance versus grounds admission." },
+      { title: "Start with the rodeo and concert you want", body: "The official 2027 tournament format has five brackets, semifinals, a wildcard round February 27 at noon and finals. Ranch Rodeo is February 18 at 7 p.m.; February 21 features Xtreme Bulls at noon and Noche del Vaquero at 7:30 p.m. These are distinct special performances, so confirm the ticket and venue for the exact session." },
+      { title: "Distinguish arena seats from the grounds", body: "Grounds hours February 11–28 are 10 a.m.–8 p.m. Sunday–Thursday and 10 a.m.–9 p.m. Friday–Saturday, except Family Day February 21 closes at 6 p.m. Carnival hours extend to 10 p.m. Sunday–Thursday and midnight Friday–Saturday; only select rides operate before 3 p.m. on weekdays. Confirm ticket inclusions separately from these operating hours." },
       { title: "Choose the right day for livestock exhibits", body: "Junior and open livestock classes, horse events and agricultural exhibits follow their own schedules. Families interested in a particular animal, school competition or educational showcase need the published daily program, not just the overall February 11–28 event window." },
       { title: "Plan parking and security around your venue", body: "Arena, coliseum and outdoor entry points can have different traffic patterns, accessibility paths, screening and bag rules. Check the organizers' current campus map and ride pickup zones rather than assuming downtown San Antonio parking guidance applies." },
       { title: "Extend the trip thoughtfully", body: "The stock show grounds sit northeast of central San Antonio; the Alamo, River Walk and missions are a separate city itinerary. Build in transport time and avoid pairing too many timed attractions with a fixed evening rodeo." },
     ],
     relatedLinks: [
       { href: "/event/fort-worth-stock-show-rodeo", label: "Fort Worth Stock Show & Rodeo", description: "Compare another major Texas stock show and rodeo." },{ href: "/browse/counties#county-bexar", label: "Explore Bexar County", description: "Build a larger San Antonio visit." }, { href: "/events", label: "Texas events calendar", description: "Compare major Texas rodeos." }],
-    sources: [{ label: "San Antonio Stock Show & Rodeo official site", url: "https://www.sarodeo.com/" }, { label: "Visit San Antonio rodeo guide", url: "https://www.visitsanantonio.com/events/arts-culture-events/san-antonio-rodeo/" }],
+    sources: [{ label: "Official 2027 grounds and carnival hours", url: "https://www.sarodeo.com/p/plan-your-visit1/planning-tools/hours-of-operation" }, { label: "Official 2027 rodeo competition format and special sessions", url: "https://www.sarodeo.com/p/explore/rodeo-experience" }, { label: "San Antonio Stock Show & Rodeo official site", url: "https://www.sarodeo.com/" }, { label: "Visit San Antonio rodeo guide", url: "https://www.visitsanantonio.com/events/arts-culture-events/san-antonio-rodeo/" }],
   },
   {
     slug: "sxsw",
@@ -288,6 +288,23 @@ const verifiedTournamentRegionByCounty: Record<string, MajorEventIndexRecord["re
 // the original monitored officialUrl intact when another official endpoint
 // contains the detailed rules or a separately dated operational announcement.
 const tournamentPlanningSources: Record<string, MajorEventSource[]> = {
+  "the-armed-forces-bowl": [
+    { label: "Official current game-day FAQ", url: "https://www.armedforcesbowl.com/faqs" },
+  ],
+  "the-cotton-bowl-classic": [
+    { label: "Official 91st Classic Huddle Up Fan Fest", url: "https://cottonbowl.com/sports/2026/10/19/huddle-up-fan-fest" },
+  ],
+  "the-first-responder-bowl": [
+    { label: "Organizer FAQ with older launch information", url: "https://www.firstresponderbowl.com/faqs" },
+  ],
+  "the-sun-bowl": [
+    { label: "Official 2026 Sun Bowl community and game-week schedule", url: "https://sunbowl.org/events" },
+  ],
+  "the-texas-bowl": [
+    { label: "ESPN Events current Texas Bowl event page", url: "https://espnevents.com/texas-bowl/" },
+    { label: "ESPN Events 2026–27 bowl announcement", url: "https://espnevents.com/press/event/espn-events-announces-17-game-college-football-bowl-schedule-for-2026-27-season/" },
+    { label: "ESPN Events title sponsor and charitable beneficiary announcement", url: "https://espnevents.com/press/event/kinders-named-new-title-sponsor-of-the-texas-bowl/" },
+  ],
   "houston-livestock-show-and-rodeo": [
     { label: "RODEOHOUSTON November 17 genre calendar and ticket release", url: "https://www.rodeohouston.com/rodeohouston-previews-2027-entertainer-lineup-with-genre-calendar/" },
     { label: "Cook-off and grounds season pass inclusions", url: "https://www.rodeohouston.com/worlds-championship-bar-b-que/" },

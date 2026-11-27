@@ -115,7 +115,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Nolan Ryan memorabilia', summary: 'The museum has its own 2021 exhibit; do not visit Alvin Community College expecting the older Nolan Ryan Center collection.', href: '/destination/alvin-historical-museum' },
       ],
       gettingAround: [
-        { title: 'Historic core', summary: 'The depot and museum make a focused local-history outing, but confirm parking and walkability for the actual route.' },
+        { title: 'Historic core', summary: 'Start at National Oak Park (118 S. Magnolia), where designated parking serves the picnic area and trail. Visit the depot at 200 Depot Centre Boulevard and the museum at 300 W. Sealy as separate stops if walking conditions are unsuitable. City park rules list hours of 6:30 a.m. to 10:30 p.m.; use designated parking and check temporary closures. Museum and depot interior access have separate schedules.', href: 'https://www.alvin.gov/482/Park-Rules' },
         { title: 'Farm and park stops', summary: 'Froberg’s Farm and Bob Briscoe Park are separate stops from the downtown heritage area; verify addresses before driving.' },
       ],
       shoppingEntertainment: [

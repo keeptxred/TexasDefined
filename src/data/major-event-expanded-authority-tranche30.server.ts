@@ -71,7 +71,7 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The September 12–13, 2026 Hill Country Galleria edition is complete. Do not promote another festival date until the organizer announces it.",
     venue: "Hill Country Galleria",
     officialUrl: "https://pecanstreetfestival.org/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "Pecan Street Festival is a free two-day arts, crafts and music weekend presented by the Pecan Street Association, with visual artists, live music, food vendors and family activities at Hill Country Galleria in Bee Cave.",
     quickFacts: [
       { label: "Last verified edition", value: "September 12–13, 2026 (completed)" },
@@ -82,7 +82,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     planningSections: [
       { title: "Know the venue moved to Bee Cave", body: "Despite the longstanding Pecan Street name and the festival's history around Austin's Sixth Street, the official 2026 edition took place at Hill Country Galleria, 12700 Hill Country Boulevard in Bee Cave. Do not use an old downtown Austin map or hotel location as a current festival address." },
-      { title: "Treat the 2026 program as a completed edition", body: "The organizer scheduled September 12–13, 2026 and posted separate closing times on Saturday and Sunday. Those dates and the 2026 music lineup are historical now; wait for the next official announcement before presenting new festival tickets or dates." },
+      { title: "Treat the 2026 program as a completed edition", body: "The organizer homepage still displays the September 12–13 banner, closed fall vendor applications and its 2026 sponsorship materials. It identifies the Pecan Street Association as the nonprofit presenter, with Special Events Live producing the festival since 2006. Proceeds support preservation of historic Sixth Street even though the last festival took place in Bee Cave. No 2027 dates are confirmed." },
       { title: "Understand admission, parking and crowd movement", body: "Admission and parking were free in 2026, with marked parking garages at Hill Country Galleria. The festival encouraged carpooling and rideshare to reduce congestion. Verify the newest venue map and current accessibility instructions before an upcoming edition." },
       { title: "Plan the arts-and-music balance", body: "The 2026 event combined artist and craft booths, food vendors, family activities and the Covert Bee Cave Stage. Someone focused on the art market could arrive earlier, while music-focused visitors needed the separate stage schedule. Do not assume the same artist roster in the next edition." },
       { title: "Use the Bee Cave setting for a longer visit", body: "The Hill Country Galleria has its own surrounding restaurants and shops. The Austin city center is a separate excursion; keep driving time and your actual accommodations in mind instead of implying the entire festival is walkable from downtown Austin." },

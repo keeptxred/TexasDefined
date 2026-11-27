@@ -21,6 +21,14 @@ const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xm
 const primarySitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap[.]xml.ts'), 'utf8');
 const types = fs.readFileSync(path.join(root, 'src/data/types.ts'), 'utf8');
 const errors = [];
+const comancheHero = path.join(root, 'public/images/comanche-museum-hero.avif');
+if (!fs.existsSync(comancheHero) || fs.statSync(comancheHero).size !== 31576 || fs.readFileSync(comancheHero).subarray(4, 12).toString('ascii') !== 'ftypavif') errors.push('Comanche museum generated AVIF must be present and intact.');
+// Museum, county and town narrative paragraphs often contain long primary-source URLs.
+// Keep them readable at 390px mobile widths rather than letting a single URL widen the page.
+const editorialStyles = fs.readFileSync(path.join(root, 'src/styles.css'), 'utf8');
+if (!/@utility editorial-body\s*\{[^}]*overflow-wrap:\s*anywhere\s*;/.test(editorialStyles)) {
+  errors.push("Editorial body must wrap long primary-source URLs without horizontal mobile overflow.");
+}
 
 for (const feature of [
   'explore_park_profiles(', 'explore_lake_profiles(', 'explore_entity_activities(',
@@ -43,11 +51,13 @@ for (const feature of [
   'destination.accessibilityNotes', 'destination.directions', 'destination.address',
   'destination.county', 'DestinationVisitPlanner',
 ]) if (!route.includes(feature)) errors.push(`Destination authority, discovery, or planning feature missing: ${feature}`);
-if (!route.includes('const substantiveModifiedAt = destination.slug === "moody-gardens"')
+if (!route.includes('const substantiveModifiedAt = ["comanche-county-historical-museum", "heritage-center-cherokee-county-rusk"].includes(destination.slug)')
+    || !route.includes('destination.updatedAt && destination.updatedAt > (destination.sourceCheckedAt ?? "")')
+    || !route.includes(': destination.slug === "moody-gardens"')
     || !route.includes('moodyGardensEditorialDates.lastSubstantiveEdit :')
     || !route.includes('destination.updatedAt ?? "2026-11-21" : destination.sourceCheckedAt')
     || !route.includes('["martin-creek-lake-state-park", "martin-creek-lake-state-park-rv-area"].includes(destination.slug)')) {
-  errors.push("Destination dateModified must preserve the existing source-review fallback and use actual Moody Gardens and paired Martin Creek substantive edit dates.");
+  errors.push("Destination dateModified must respect the later Comanche and Rusk museum editorial revisions while preserving Moody Gardens, paired Martin Creek and other source-review fallbacks.");
 }
 
 for (const feature of [

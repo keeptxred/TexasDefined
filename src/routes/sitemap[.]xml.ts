@@ -45,7 +45,7 @@ function primarySitemapCacheRequest(request: Request): Request {
   cacheUrl.searchParams.set("dallas-editorial-lastmod", "2026-11-22");
   // Rusk county source-backed syrup designation, museum and archived event all changed on November 22.
   cacheUrl.searchParams.set("rusk-syrup-20261122", "county-museum-festival-v1");
-  cacheUrl.searchParams.set("comanche-county-editorial-lastmod", "2026-11-24");
+  cacheUrl.searchParams.set("comanche-county-editorial-lastmod", "2026-11-26");
   cacheUrl.searchParams.set("alvin-brazoria-editorial-lastmod", "2026-11-24");
   // Substantive Cass and statewide music editorial revisions reviewed Nov 24.
   // Separate cache key ensures the sitemap cannot retain August county lastmod.
@@ -86,7 +86,7 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/county/rusk": "2026-11-22", // Substantive H.C.R. 83 syrup, 1989 festival and Depot Museum history revision.
   "/county/brazoria": "2026-11-24", // Substantive museum, art trail and local-history revision.
   "/city/alvin": "2026-11-24", // Substantive depot, farm and mural visitor guidance.
-  "/county/comanche": "2026-11-24", // Independently sourced Nov 24 depot chronology, NPS listing and preservation evidence.
+  "/county/comanche": "2026-11-26", // Independently sourced Nov 24 depot chronology, NPS listing and preservation evidence.
   "/county/cass": "2026-11-24", // Cass/Linden sourced theater, Barn, biographies and county history updated Nov 24.
   "/texas-music-venues": "2026-11-24", // Researched Music Barn, citations and licensed editorial photograph.
   "/texas-music-cities": "2026-11-24", // Researched Linden scene, reciprocal links and documentary photo.
@@ -111,7 +111,7 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/texas-vs-every-state": PRIORITY_SEO_LASTMOD,
   "/texas-history": "2026-08-20",
   "/dallas-black-history": "2026-10-13",
-  "/holiday/magical-winter-lights": "2026-10-21",
+  "/holiday/magical-winter-lights": "2026-11-27",
   "/holiday/enchant-christmas-arlington": "2026-10-21",
   "/texas-historic-landmarks": "2026-10-12",
   "/texas-symbols": "2026-08-20",
