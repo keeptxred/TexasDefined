@@ -495,7 +495,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2027-07-18",
     venue: "Downtown Waco theaters; exact screenings TBA",
     officialUrl: "https://www.wacoindie.com/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "Waco Indie combines a compact downtown film-festival atmosphere with screenings, conversations and filmmaker recognition. The announced July 2027 physical festival is distinct from the online encore that starts after the in-person edition.",
     quickFacts: [
       {
@@ -522,11 +522,11 @@ const records: FestivalEventRecord[] = [
       },
       {
         title: "Plan around a screening or filmmaker event",
-        body: "Venue doors, Q&As and sell-outs matter more than a general multi-day date. Choose the sessions you most want, then use downtown Waco dining and walkable activities around those fixed times."
+        body: "The organizer groups short films into themed blocks lasting roughly 90 minutes to two hours. Its older FAQ describes individual block admission, six-ticket packs and VIP access, but the FAQ still carries the previous July 16–19 dates. Confirm 2027 admission terms and showtimes rather than assuming prior pass benefits continue."
       },
       {
         title: "Check the venue before buying parking or lodging",
-        body: "Past editions used downtown movie houses, including the Waco Hippodrome. The 2027 festival has announced the city and dates, but current individual screening locations must be verified on the final program."
+        body: "The 2027 submission guide explains that independent galleries, performance spaces and the historic theater may host films; do not assume every screening has multiplex equipment. The organizer accepts shorts, features, student shorts, music videos and screenplays through FilmFreeway. Filmmaker entry fees are distinct from visitor admission."
       },
       {
         title: "Accessible filmgoing takes advance coordination",
@@ -558,6 +558,14 @@ const records: FestivalEventRecord[] = [
       {
         label: "Official submission platform confirming 2027 edition",
         url: "https://filmfreeway.com/WacoIndie"
+      },
+      {
+        label: "Organizer 2027 submission guide and venue format",
+        url: "https://www.wacoindie.com/submissions"
+      },
+      {
+        label: "Prior-edition FAQ (ticket types and screening format, not 2027 terms)",
+        url: "https://www.wacoindie.com/faq"
       }
     ]
   },
