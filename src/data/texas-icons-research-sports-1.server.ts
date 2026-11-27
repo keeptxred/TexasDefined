@@ -28,11 +28,14 @@ export const TEXAS_ICON_RESEARCH_SPORTS_BATCH_1: readonly TexasIconResearchProfi
     ],
     texasPlaces: [
       { name: "Refugio", context: "Ryan's Texas birthplace." },
-      { name: "Alvin", context: "Childhood home south of Houston where his baseball development began." },
+      { name: "Alvin", href: "/city/alvin", context: "Childhood home in Brazoria County where his baseball development began." },
+      { name: "Alvin Historical Museum", href: "/destination/alvin-historical-museum", context: "The former post office at 300 West Sealy Street houses a hometown Nolan Ryan exhibit; confirm current visitor hours before traveling." },
+      { name: "Brazoria County", href: "/county/brazoria", context: "County containing Alvin, with regional railroad, agricultural and Gulf Coast heritage." },
       { name: "Houston", context: "Astros home from 1980 through 1988 and site of his return to Texas baseball." },
       { name: "Arlington", context: "Rangers home during the final phase of his major-league career." },
     ],
     sources: [
+      { label: "Alvin Museum Society — museum exhibits", url: "https://alvinmuseum.org/alvin-musuem/" },
       { label: "National Baseball Hall of Fame — Nolan Ryan", url: "https://baseballhall.org/hall-of-famers/ryan-nolan" },
       { label: "National Baseball Hall of Fame — Ryan throws seventh no-hitter", url: "https://baseballhall.org/discover/inside-pitch/ryan-throws-seventh-no-hitter" },
       { label: "National Baseball Hall of Fame — Million Dollar Man", url: "https://baseballhall.org/discover-more/stories/inside-pitch/nolan-ryan-million-dollar-man" },
