@@ -58,6 +58,9 @@ export function verifiedMardiGrasDateLabel(fact: AutoPublishedMardiGrasFact) {
 export function applyVerifiedMardiGrasSourceFacts(event: MajorEventAuthorityRecord): MajorEventAuthorityRecord {
   const fact = verifiedMardiGrasFactForSlug(event.slug);
   if (!fact) return event;
+  // Preserve a detailed editorially verified program when the automated date agrees.
+  // A conflicting newer occurrence still uses the cautious date-only fallback.
+  if (event.startDate === fact.startDate && event.endDate === fact.endDate && event.startDate.startsWith("2027-")) return event;
   const date = verifiedMardiGrasDateLabel(fact);
   const orange = event.slug === "mardi-gras-on-the-sabine-orange";
   const identity = orange ? "City of Orange" : "Mardi Gras Southeast Texas";
