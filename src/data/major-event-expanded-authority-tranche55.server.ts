@@ -416,7 +416,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2027-05-08",
     venue: "Houston screening venues; see published 2027 program",
     officialUrl: "https://www.worldfest.org/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "WorldFest-Houston's 60th edition focuses on independent film and international storytellers. The festival's 2027 dates are announced, but submissions and juror recruitment are still underway; specific public screenings and venues should not be asserted until the final program.",
     quickFacts: [
       {
@@ -439,7 +439,7 @@ const records: FestivalEventRecord[] = [
     planningSections: [
       {
         title: "Distinguish film submissions from visitor ticket sales",
-        body: "The site prominently features submission deadlines and jury participation. These are industry opportunities, not public admission passes. Use only the announced screening and ticket program when arranging a visitor trip."
+        body: "The main film-entry deadline was November 15, 2026. The new International Autistic Filmmakers Showcase is announced for April 30, 2027 with Spectrum Fusion sponsoring up to 100 eligible submissions until January 15 or exhaustion. A qualifying project includes an autistic artist in a principal creative role; self-identification is accepted. Submission fee assistance is not an audience ticket."
       },
       {
         title: "Plan by the final screening venue map",
@@ -479,6 +479,10 @@ const records: FestivalEventRecord[] = [
       {
         label: "WorldFest 2027 submissions and deadlines",
         url: "https://www.worldfest.org/film-submission"
+      },
+      {
+        label: "2027 showcase eligibility and sponsorship terms",
+        url: "https://www.worldfest.org/festival/autistic-filmmakers-showcase"
       }
     ]
   },
@@ -642,17 +646,17 @@ const records: FestivalEventRecord[] = [
     countyName: "McLennan County",
     region: "prairies-lakes",
     category: "food",
-    startDate: "2026-04-11",
-    endDate: "2026-04-11",
-    venue: "Heritage Square, Downtown Waco",
+    startDate: "2027-04-17",
+    endDate: "2027-04-17",
+    venue: "Downtown Waco; 2027 site map pending",
     officialUrl: "https://thetexasfoodtruckshowdown.com/",
-    sourceCheckedAt: "2026-10-21",
-    dateNote: "The organizer confirms only April 11, 2026; no verified 2027 date, so this is a past-edition evergreen guide.",
-    whyItMatters: "Organized by the Greater Waco Chamber of Commerce, this competitive food-truck day pairs signature-dish voting with family activities and full-menu sales later in the evening. Its 2026 edition has ended, and the 2027 event date is not yet confirmed.",
+    sourceCheckedAt: "2026-11-27",
+    dateNote: "The Greater Waco Chamber confirms April 17, 2027 in downtown Waco; final hours, truck list and ticket terms are not yet confirmed.",
+    whyItMatters: "Organized by the Greater Waco Chamber of Commerce, this competitive food-truck day pairs signature-dish voting with family activities and full-menu sales later in the evening. The next edition is confirmed for April 17, 2027; the chamber's historical competition model helps visitors plan without assuming the same truck roster or tasting terms.",
     quickFacts: [
       {
-        label: "Last confirmed date",
-        value: "April 11, 2026 — completed"
+        label: "Next confirmed date",
+        value: "April 17, 2027"
       },
       {
         label: "Organizer",
@@ -664,7 +668,7 @@ const records: FestivalEventRecord[] = [
       },
       {
         label: "Next edition",
-        value: "2027 date not announced"
+        value: "Downtown Waco; detailed program pending"
       }
     ],
     planningSections: [
@@ -678,11 +682,11 @@ const records: FestivalEventRecord[] = [
       },
       {
         title: "Use an organizer-confirmed date",
-        body: "Although the Waco Chamber calls the Showdown annual, it has not published a specific 2027 event date as of this check. Keep the permanent authority guide available, but show April 2026 as completed rather than rolling it forward."
+        body: "The chamber's current homepage names Saturday, April 17, 2027 and states that 2027 truck and market vendor applications would open in October. The 2026 festival took place April 11; do not reuse its ticket prices, operating hours or detailed map for 2027."
       },
       {
         title: "Treat the downtown footprint as a walking festival",
-        body: "Heritage Square is near Waco's restaurant core. Once a new edition is announced, follow the official location map for truck lines, traffic, accessible paths and parking; avoid reusing a 2026 vehicle entry plan."
+        body: "Heritage Square is near Waco's restaurant core. Once the 2027 site map is published, follow the official location map for truck lines, traffic, accessible paths and parking; avoid reusing a 2026 vehicle entry plan."
       }
     ],
     relatedLinks: [
@@ -704,12 +708,16 @@ const records: FestivalEventRecord[] = [
     ],
     sources: [
       {
-        label: "Greater Waco Chamber 2026 event details",
+        label: "Greater Waco Chamber 2026 event details (historical)",
         url: "https://business.wacochamber.com/events/Details/2026-texas-food-truck-showdown-1646517"
       },
       {
-        label: "Official Showdown organizer and competition schedule",
-        url: "https://thetexasfoodtruckshowdown.com/schedule-of-events/"
+        label: "Official Showdown 2027 date and vendor announcements",
+        url: "https://thetexasfoodtruckshowdown.com/"
+      },
+      {
+        label: "Organizer history and competition format",
+        url: "https://thetexasfoodtruckshowdown.com/our-story/"
       }
     ]
   },
