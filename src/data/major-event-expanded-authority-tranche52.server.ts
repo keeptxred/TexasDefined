@@ -15,7 +15,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-02-07",
     venue: "Downtown Port Arthur",
     officialUrl: "https://visitportarthurtx.com/mardi-gras/about-mardi-gras/",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "Port Arthur's 2027 return to city-hosted Mardi Gras is a new destination celebration shaped by the area's Cajun and Gulf Coast culture. The Port Arthur Convention & Visitors Bureau says the February 5–7 program will include parades, live music, food and family activities. It should not be confused with the separately organized Mardi Gras of Southeast Texas event that moved to Beaumont.",
     quickFacts: [
       {
@@ -36,7 +36,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         label: "Parades and admission",
-        value: "Festival-area gate hours are published; exact parade start times, route closures, and admission/ticket terms are still pending on the organizer’s detailed schedule page (checked October 28)"
+        value: "Friday 6:15 p.m.; Saturday 6 p.m.; Sunday children’s parade 2 p.m. and motor parade 3 p.m. — gate tickets cover concerts"
       }
     ],
     planningSections: [
@@ -46,7 +46,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Anchor your trip to the February 5–7 weekend",
-        body: "The tourism bureau confirms February 5–7 in downtown Port Arthur. Ben J. Rogers Regional Visitors Center also publishes Procter Street festival gate hours: Friday February 5, 6–11:30 p.m.; Saturday February 6, noon–11:30 p.m.; Sunday February 7, noon–7 p.m. These are FESTIVAL GATE windows, not parade or concert start times. As of October 28 the organizer’s detailed schedule still omits individual parade start times, road-closure maps and ticket prices. Confirm those details before traveling."
+        body: "The tourism bureau confirms February 5–7 in downtown Port Arthur. Ben J. Rogers Regional Visitors Center also publishes Procter Street festival gate hours: Friday February 5, 6–11:30 p.m.; Saturday February 6, noon–11:30 p.m.; Sunday February 7, noon–7 p.m. These are FESTIVAL GATE windows, not parade or concert start times. The detailed organizer program now lists the Friday night parade at 6:15 p.m., Saturday night parade at 6 p.m. and Sunday’s Crawfish Kids Parade at 2 p.m. followed by the Motiva Motor Parade at 3 p.m. Sunday vendor gates end at 6:15 p.m.; festival closing is 7 p.m. Reconfirm the schedule because its Sunday children’s area listing extends beyond closing."
       },
       {
         title: "Find a viewing strategy before committing to parking",
@@ -54,7 +54,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Treat family activities and paid amenities separately",
-        body: "The organizer describes its new festival as multigenerational and family-friendly, but ticketing and premium viewing rules may differ across attractions. Do not assume all entertainment, admission or grandstand access is free until the event posts its final policy."
+        body: "The organizer confirms that a gate ticket includes all concerts, with no separate concert charge. The published program features Casey Donahew Friday, Keith Frank Saturday and Wayne Toups Sunday. Check the official ticket link for current prices and eligibility; carnival rides and premium access may have separate terms."
       },
       {
         title: "Explore beyond the parade",
@@ -88,7 +88,7 @@ const records: MajorEventAuthorityRecord[] = [
         url: "https://visitportarthurtx.com/annual-events/"
       },
       {
-        label: "Visit Port Arthur — dedicated Mardi Gras schedule (individual parade/ticket details pending)",
+        label: "Visit Port Arthur — dedicated 2027 program, parade times and concert admission",
         url: "https://visitportarthurtx.com/mardi-gras/schedule/"
       },
       {
@@ -294,7 +294,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-02-06",
     venue: "Highway 87, Crystal Beach, Bolivar Peninsula",
     officialUrl: "https://bolivarpeninsulatexas.com/event/mardi-gras-parade-in-crystal-beach-texas-february-6-2027",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "Crystal Beach offers a different Mardi Gras experience from Galveston's ticketed Strand entertainment district: a community parade along Highway 87 on the Bolivar Peninsula. The regional events publisher lists February 6, 2027 and an 11:30 a.m.–1:30 p.m. parade window; the Lighthouse Krewe's annual tradition is also documented by Crystal Beach tourism.",
     quickFacts: [
       {
@@ -335,6 +335,8 @@ const records: MajorEventAuthorityRecord[] = [
         title: "Extend the stay on the peninsula",
         body: "Beach walks, local restaurants, fishing and vacation rentals make an easy weekend extension. Check coastal weather and any current beach-driving or permit requirements independently of festival information."
       }
+,
+      { title: "Resolve the conflicting time listings", body: "The regional tourism listing’s heading gives 11 a.m., but its description and the Lighthouse Krewe’s official parade information identify 11:30 a.m. Use the krewe’s departure time and allow extra arrival time. Entrants must use the krewe registration instructions; staging and judging times are not public parade start times." }
     ],
     relatedLinks: [
       {
@@ -620,51 +622,55 @@ const records: MajorEventAuthorityRecord[] = [
     countyName: "Orange County",
     region: "gulf-coast",
     category: "culture",
-    startDate: "2026-02-07",
-    endDate: "2026-02-07",
-    dateNote: "The City of Orange's main festival page still says its 2027 festival schedule is pending, although its 2027 FAQ explicitly confirms a Krewe of Krewes Parade for January 30 at 6 p.m. These are separate levels of confirmation: do not infer the full riverfront program has been announced.",
+    startDate: "2027-01-30",
+    endDate: "2027-01-30",
+    dateNote: "The City of Orange now confirms the entire January 30, 2027 riverfront festival from 2–10 p.m., including the 6 p.m. Krewe of Krewes parade.",
     venue: "Riverfront Boardwalk & Pavilion, Downtown Orange",
     officialUrl: "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine",
-    sourceCheckedAt: "2026-11-15",
-    whyItMatters: "Orange's riverfront Mardi Gras combines Cajun food and music with the Krewe of Krewes procession, second-line participation and a parade for children. The city verifies its February 7, 2026 festival but explicitly says 2027 dates and details will be announced later. This is a historic planning guide, not an announced 2027 event.",
+    sourceCheckedAt: "2026-11-27",
+    whyItMatters: "Orange’s free riverfront Carnival combines a participatory second line, children’s parade, Cajun food and brass-band music with the chamber’s 23rd annual Krewe of Krewes procession. The confirmed 2027 program takes place January 30, rather than repeating February 7, 2026 (the completed previous festival).",
     quickFacts: [
       {
-        label: "Next 2027 festival",
-        value: "Main festival schedule pending; city FAQ confirms Krewe of Krewes parade Jan. 30 at 6 p.m."
+        "label": "Confirmed festival",
+        "value": "Saturday, January 30, 2027 · 2–10 p.m."
       },
       {
-        label: "Most recently verified festival",
-        value: "February 7, 2026 — already completed"
+        "label": "Admission",
+        "value": "Free festival and concerts; food and other purchases separate"
       },
       {
-        label: "Historic festival location",
-        value: "Riverfront Boardwalk & Pavilion, downtown Orange"
+        "label": "Location",
+        "value": "Riverfront Boardwalk & Pavilion, 601 W. Division Street"
       },
       {
-        label: "2026 entry",
-        value: "City listed free public admission; 2027 terms not yet confirmed"
+        "label": "Parade starts",
+        "value": "3 p.m. second line and Krewe de Kids; 6 p.m. Krewe of Krewes"
+      },
+      {
+        "label": "Venue restrictions",
+        "value": "No pets or coolers at the Riverfront Pavilion"
       }
     ],
     planningSections: [
       {
-        title: "January 30 parade confirmed; other 2027 festival details pending",
-        body: "The city's FAQ identifies a January 30, 2027 Krewe of Krewes parade at 6 p.m., starting at First Street and Front Avenue and continuing via Fifth, Division, Tenth and Green. The main Mardi Gras on the Sabine festival page still shows February 2026 details and promises a future 2027 update. Do not attribute those 2026 concert, vendor or gate hours to January 30."
+        "title": "Choose the afternoon or evening program",
+        "body": "The city’s dated January 30 program opens at 2 p.m. Children’s activities continue until 6 p.m.; vendors operate until 10 p.m. The Big Fun Brass Band plays from 4–6 p.m. An additional Zydecajun performance follows the main parade, but the artist has not been announced."
       },
       {
-        title: "Understand the riverfront event layout",
-        body: "In 2026 the main festival occupied the Boardwalk and Pavilion near downtown Orange's parade corridor. A second-line march and Krewe de Kids procession complemented the larger Krewe of Krewes parade. Verify that the 2027 site layout and procession order have not changed."
+        "title": "Join the second line or watch the children’s parade",
+        "body": "The 3 p.m. procession combines a second line with the Krewe de Kids. Families can register children to walk or use decorated wagons or strollers; the registration form is still forthcoming. The city FAQ contains an inconsistent January 20 reference, so use the dated January 30 program and reconfirm participation details before leaving."
       },
       {
-        title: "Think about family participation versus spectatorship",
-        body: "The 2026 city program let children join a parade with decorated wagons or strollers after registration, and promoted participation in a brass-band second line. Similar opportunities are not yet promised for 2027; check entry rules, registration deadlines and age guidance on the next official schedule."
+        "title": "Watch the main parade along the city route",
+        "body": "The chamber’s 6 p.m. parade begins at First Street and Front Avenue, turns onto Fifth Street and Division Street past the pavilion, then continues along Tenth Street and Green Avenue. Check street closures and accessible drop-offs before choosing a viewing point."
       },
       {
-        title: "Don't infer admission or concert headliners from last year",
-        body: "Orange called the 2026 festival free, with concerts at its Riverfront Pavilion. These were specifics of the completed event. The city must reconfirm 2027 tickets, hours, performers, vendor policies and accessible pathways."
+        "title": "Plan for a free riverfront festival",
+        "body": "No admission ticket is required, including for concerts. Bring money for optional vendor purchases. The city prohibits pets and coolers at the pavilion; ask the organizer about accessibility and any weather changes."
       },
       {
-        title: "Build a Sabine River day trip",
-        body: "Historic downtown Orange, nearby museums and the riverfront can support a visit once the date is official. Parking, road closures, event-day traffic and weather contingency should be checked close to travel."
+        "title": "Make time for Orange beyond the parade",
+        "body": "Build a separate museum or historic downtown stop around the riverfront program. Confirm venue hours independently and avoid assuming streets near the pavilion remain open to vehicles."
       }
     ],
     relatedLinks: [
@@ -690,7 +696,7 @@ const records: MajorEventAuthorityRecord[] = [
         url: "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine"
       },
       {
-        label: "City of Orange 2026 FAQ (historical details only)",
+        label: "City of Orange FAQ — admission, address and participation guidance",
         url: "https://orangetexas.gov/m/faq?cat=31"
       }
     ]
