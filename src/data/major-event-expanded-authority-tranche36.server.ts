@@ -75,12 +75,12 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-12-29",
     venue: "Alamodome",
     officialUrl: "https://www.alamobowl.com/",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The Valero Alamo Bowl is one of San Antonio's largest annual sports-travel events, bringing a nationally televised postseason college football matchup to the Alamodome and surrounding it with Bowl Week fan programming downtown.",
     planningSections: [
       { title: "Anchor the trip on December 29", body: "The Valero Alamo Bowl organization confirms the 2026 game for Tuesday, December 29 at 8 p.m. Central at the Alamodome, with national television coverage on ESPN." },
-      { title: "Treat game day as a downtown event district", body: "Official Bowl programming includes pregame fan activities near the Alamodome, and the venue sits within walking distance of downtown hotels and attractions. Review the current Bowl Week calendar and transportation guidance before deciding whether to drive, walk or use rideshare." },
-      { title: "Wait for the December 6 team announcement before finalizing fan events", body: "The organizer's 2026 media schedule tentatively places the team announcement on Sunday, December 6 at 3 p.m. Central, with a head-coaches press conference at 4 p.m. Matchup-dependent celebrations and fan schedules can change after the College Football Playoff selections; check the official game-week calendar rather than guessing participants." },
+      { title: "Treat game day as a downtown event district", body: "The December 29 FAQ gives a 5 p.m. general box-office opening and 6 p.m. stadium doors. Everyone entering, including children, needs a digital ticket; parking permits are also digital and prepaid, with no onsite sales. Lots open at 10 a.m., except separately permitted Tailgate Town setup at 9 a.m. Confirm current parking availability and digital-wallet instructions." },
+      { title: "Wait for the December 6 team announcement before finalizing fan events", body: "The organizer's 2026 media schedule tentatively places the team announcement on Sunday, December 6 at 3 p.m. Central, with a head-coaches press conference at 4 p.m. The tentative calendar also lists a December 27 River Rally at 5 p.m. at Arneson River Theatre. The November Week 13 projections are not a finalized matchup. Confirm the public-access event schedule after December 6 rather than treating media-only sessions or projected teams as confirmed." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-bexar", label: "Explore Bexar County", description: "Build more San Antonio stops around the bowl game." },
