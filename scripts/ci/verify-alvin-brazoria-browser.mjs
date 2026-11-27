@@ -107,6 +107,32 @@ try {
           assert.ok(await matching.evaluate(el=>el.complete && el.naturalWidth > 0 && !!el.alt), 'Broken archive photo or missing alt ' + id);
         }
         assert.ok(d.bodyText.includes('DeGolyer Library') && d.bodyText.includes('No known copyright restrictions'), 'Archive provenance');
+        if (target.path === '/county/brazoria' && mode.javaScriptEnabled) {
+          const region = page.getByRole('region', { name: 'County property tax rates table', exact: true });
+          await region.waitFor({state:'visible',timeout:25000});
+          const rows = region.locator('tbody tr');
+          const count = await rows.count();
+          assert.ok(count > 0, 'Hydrated county rate table has no rows');
+          const headers = await region.locator('thead th').allTextContents();
+          assert.equal(headers.length, 5, 'Tax table column headers');
+          await region.focus();
+          assert.equal(await region.evaluate(el => el === document.activeElement), true, 'Tax table keyboard focus');
+          const rates = await rows.locator('td:nth-child(2)').allTextContents();
+          assert.ok(rates.some(rate => /\\d+\\.\\d{6}/.test(rate)), 'No numeric county rate');
+          report.taxTable = { countyRows: count, headers, rates, focusable: true };
+        }
+        if (target.path === '/county/brazoria' && !mode.javaScriptEnabled && process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+          assert.ok(d.bodyText.includes('Interactive rate tables load when JavaScript is available'), 'Missing meaningful tax SSR fallback');
+        }
+        if (target.path === '/city/alvin' && process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+          for (const marker of ['118 S. Magnolia', '200 Depot Centre Boulevard','300 W. Sealy','6:30 a.m. to 10:30 p.m.','designated parking']) assert.ok(d.bodyText.includes(marker), 'Missing municipal logistics ' + marker);
+          assert.ok(d.links.includes('https://www.alvin.gov/482/Park-Rules'), 'Missing municipal rules link');
+        }
+        report.accessibility = await page.evaluate(() => ({
+          landmarks: [...document.querySelectorAll('main,nav,header,footer,[role=main],[role=navigation]')].map(el => ({tag:el.tagName,role:el.getAttribute('role'),label:el.getAttribute('aria-label')})),
+          headings: [...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].map(el => ({level:Number(el.tagName.slice(1)),text:el.innerText.trim()})),
+          unnamedControls: [...document.querySelectorAll('button,a[href],input:not([type=hidden]),select,textarea')].filter(el => el.getClientRects().length && !(el.getAttribute('aria-label') || el.getAttribute('aria-labelledby') || el.getAttribute('title') || el.innerText?.trim() || el.querySelector('img[alt]')?.alt || el.labels?.length)).map(el=>({tag:el.tagName,href:el.getAttribute('href'),id:el.id}))
+        }));
         // Recheck after the lazy gallery has been revealed. Retain both
         // measurements; do not accept persistent overflow at either point.
         d.finalLayout = await page.evaluate(() => ({
