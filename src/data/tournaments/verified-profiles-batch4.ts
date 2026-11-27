@@ -83,12 +83,12 @@ export const VERIFIED_TOURNAMENT_BATCH4_PROFILES: readonly VerifiedTournamentBat
     whyItMatters: "The UIL wrestling championships concentrate Texas public-school boys and girls title brackets at the Berry Center, creating a two-day statewide championship event in northwest Harris County.",
     planningNotes: [
       "UIL confirms the 2027 state tournament February 12–13 at Berry Center in Cypress. Its state website still displays a timetable labelled 2025–2026; those mat and weigh-in times should not be reused as a confirmed 2027 schedule. Check the 2027 event-day update before planning session arrival.",
-      "The official 2026–27 UIL wrestling calendar identifies February 5–6 regionals followed by February 12–13 state finals. Confirm whether the spectator session you want is boys or girls and obtain current parking and digital ticket instructions before departure.",
-      "Plan any Houston-area stops around the tournament schedule rather than describing the event simply as downtown Houston; Cypress is the host community.",
+      "UIL’s postseason manual confirms February 5–6 regionals via its season calendar and says the top four regional finishers in each weight class qualify for state. State brackets follow completion of regional tournaments; team packets are available February 11 and Friday morning, but these are participant arrangements, not spectator hours.",
+      "The state manual confirms medals for the top three in each weight class and trophies for the top three teams. It explicitly says the 2027 timetable will be released later; the existing spectator and weigh-in pages still refer to February 13–14, 2026. Do not use those entry times or ticket details for the 2027 Cypress tournament.",
     ],
     officialUrl: "https://www.uiltexas.org/wrestling/state",
     officialSourceLabel: "UIL Wrestling State Championships official page",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
   },
   {
     slug: "uil-spirit-state-championships",
@@ -105,13 +105,13 @@ export const VERIFIED_TOURNAMENT_BATCH4_PROFILES: readonly VerifiedTournamentBat
     summary: "The 2027 UIL Spirit State Championships run January 13–16 at the Fort Worth Convention Center.",
     whyItMatters: "UIL Spirit brings Texas school cheer programs across classifications and the coed division to downtown Fort Worth for four days of qualifying and state-final performances.",
     planningNotes: [
-      "UIL confirms January 13–16, 2027 at Fort Worth Convention Center, but division-by-day classifications and spectator maps are still marked TBA. Buy the correct classification ticket only after checking UIL's current performance order.",
+      "UIL’s preliminary classification calendar now assigns 1A to January 13; 2A and 3A divisions I and II to January 13–14; 4A divisions to January 14; 5A and 6A divisions to January 15–16; and coed to January 16. The first performance order is due December 4, 2026; the spectator packet, maps and ticket-day classification labels remain pending.",
       "Spectator tickets are digital through HomeTown Ticketing and sold by conference. UIL states there are no refunds; the scanned ticket is exchanged for a venue-entry wristband. Review the official spectator information before purchase.",
-      "The Fort Worth Stock Show Parade may affect downtown traffic and parking on Saturday morning. Allow additional arrival time, and verify your team's conference and day before committing to other Fort Worth plans.",
+      "UIL warns of the Saturday Stock Show Parade affecting downtown traffic. Select downtown garages may offer free evening and weekend parking, subject to event exceptions. Families unable to travel can use the official NFHS Network subscription webcast. Confirm the current day pass and venue map before arrival.",
     ],
     officialUrl: "https://www.uiltexas.org/spirit/spirit-state-championships",
     officialSourceLabel: "UIL Spirit State Championships official page",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
   },
 ];
 
