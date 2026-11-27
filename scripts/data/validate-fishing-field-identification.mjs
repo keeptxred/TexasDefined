@@ -80,6 +80,26 @@ assert(flagshipUI.includes("identification={pageData.identification}") && flagsh
   "Flagship bass UI missing identification and comparison links");
 assert(flagshipServer.includes("comparisonGuides,") && flagshipServer.includes("isCompleteFishingSpeciesSlug"),
   "Flagship bass server missing published-guide lookalike resolution");
-assert(sitemap.includes("FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT"), "Species sitemap editorial refresh date missing");
+assert(sitemap.includes("FISH_AUTHORITY_EDITORIAL_UPDATED_AT"), "Species sitemap editorial refresh date missing");
 assert(directory.includes("row.verifiedAt"), "Directory falsely presents uniform source-review freshness");
 console.log("TPWD freshwater fish identification validation passed: all 22 species covered, nine new canonical guides, licensed illustrations, verified habitat and source fields, contextual published-guide lookalike links and sitemap freshness.");
+
+const authority = read("src/data/fishing/species-authority-notes.ts");
+const sources = JSON.parse(authority.split("export const FISH_AUTHORITY_SOURCES = ")[1].split(" as const;")[0]);
+const notes = JSON.parse(authority.split("export const FISH_AUTHORITY_NOTES: Record<string, FishAuthorityNote> = ")[1].split(";\n")[0]);
+const complete = [...slugs.match(/COMPLETE_FISHING_SPECIES_SLUGS\s*=\s*\[([\s\S]*?)\]/)[1].matchAll(/"([^"]+)"/g)].map(x=>x[1]);
+assert.equal(complete.length,28);
+assert.deepEqual(new Set(Object.keys(notes)),new Set(complete));
+assert.equal(new Set(Object.values(notes).map(x=>x.title)).size,28);
+assert.equal(new Set(Object.values(notes).map(x=>x.description)).size,28);
+for(const [slug,row] of Object.entries(notes)){
+  assert(row.title.length>=30 && row.description.length>=70 && row.guidance.length>=220,slug+": incomplete practical guidance");
+  for(const key of [row.source,...(row.extraSources??[])]) assert(sources[key],slug+": missing source "+key);
+  for(const target of row.related??[]) assert(target!==slug && complete.includes(target),slug+": invalid contextual species link");
+  assert.equal(new Set(row.related??[]).size,(row.related??[]).length,slug+": duplicate links");
+}
+for(const src of Object.values(sources)){assert.equal(new URL(src.url).hostname,"tpwd.texas.gov");assert(src.witness.length>3);}
+for(const slug of complete) assert(slug==="rainbow-trout" || Object.values(notes).some(row=>row.related?.includes(slug)),slug+": missing incoming contextual species link");
+assert(read("src/components/fishing/FishingSeasonDirectory.tsx").includes("/fishing/species/rainbow-trout"),"Stocking guide inbound link missing");
+assert(component.includes("FishAuthorityNote") && flagshipUI.includes("FishAuthorityNote"),"Practical source guidance must render in both templates");
+console.log("PASS: 28 distinct editorial notes, titles, descriptions, official sources and contextual incoming links.");
