@@ -83,7 +83,7 @@ for (const eagerHeadToken of ["buildMeta", "canonicalLink", "texasDefinedBrand",
 
 requireText(files.directoryServer, "isCompleteFishingSpeciesSlug(row.slug)", "directory full-guide badges must use shared completion gate");
 requireText(files.directoryComponent, "Which Texas fish did you catch?", "directory all-species guide promise missing");
-requireText(files.directoryComponent, "historical records", "directory source-backed growth policy missing");
+requireText(files.directoryComponent, "A historical record alone is not a present-day lake recommendation", "directory historical evidence scope missing");
 
 for (const token of ["buildLargemouthBassHead", '"@type": "WebPage"', '"@type": "BreadcrumbList"', "canonicalPath"]) requireText(files.bassServer, token, `flagship server-head optimization missing ${token}`);
 for (const token of ['createFileRoute("/fishing/species/largemouth-bass")', "head: ({ loaderData }) => loaderData?.head"]) requireText(files.bassRoute, token, `flagship critical route contract missing ${token}`);
