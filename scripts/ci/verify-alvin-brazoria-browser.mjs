@@ -85,8 +85,19 @@ try {
           const matching = page.locator('img[src*="' + id + '"]').first();
           assert.ok(await matching.count(), 'Missing archive photo ' + id);
           await matching.scrollIntoViewIfNeeded({timeout:15000});
-          if (mode.javaScriptEnabled) await matching.evaluate(el => el.decode());
-          else await page.waitForTimeout(1000);
+          // Native image requests can take longer than one second even when
+          // page JavaScript is disabled. Playwright can still inspect DOM state.
+          // Require actual decoded image pixels and meaningful alt in every mode.
+          assert.ok((await matching.getAttribute('alt'))?.trim(), 'Missing archive photo alt ' + id);
+          try {
+            await page.waitForFunction(srcId => {
+              const img = document.querySelector('img[src*="' + srcId + '"]');
+              return img?.complete && img.naturalWidth > 0;
+            }, id, { timeout: 20000 });
+          } catch (error) {
+            const state = await matching.evaluate(el => ({src:el.currentSrc, complete:el.complete, width:el.naturalWidth, loading:el.loading}));
+            throw new Error('Archive photo failed to load ' + id + ': ' + JSON.stringify(state), {cause:error});
+          }
           assert.ok(await matching.evaluate(el=>el.complete && el.naturalWidth > 0 && !!el.alt), 'Broken archive photo or missing alt ' + id);
         }
         assert.ok(d.bodyText.includes('DeGolyer Library') && d.bodyText.includes('No known copyright restrictions'), 'Archive provenance');
