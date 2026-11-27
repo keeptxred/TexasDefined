@@ -50,7 +50,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Do not confuse preregistration festivities with the main festival",
-        body: "The 2026 Doo-Dah Parade and a Queen's Coronation happened in September, before the October 1–3 festival. When building a trip around a particular activity, check the complete Chamber calendar, not just the three-day main-stage dates."
+        body: "The 2026 Doo-Dah Parade and a Queen's Coronation happened in September, before the October 1–3 festival. For activity details, look for separate Chamber program entries for the Chicken Clucking Contest and Wing Eating Contest. Check those entries alongside the main-stage dates when planning a visit."
       },
       {
         title: "Explore the county after a food-and-crafts morning",
