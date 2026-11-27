@@ -262,8 +262,8 @@ const records: FestivalEventRecord[] = [
     endDate: "2027-02-28",
     venue: "Port Aransas Civic Center and offsite nature excursions",
     officialUrl: "https://www.portaransas.org/whooping-crane-festival/",
-    sourceCheckedAt: "2026-10-21",
-    whyItMatters: "This annual coastal gathering connects birders with the endangered whooping crane's winter habitat through speaker sessions, birding excursions, boat tours and photography workshops. Guided field trips and boat outings require separate planning; some are not at the Civic Center.",
+    sourceCheckedAt: "2026-11-27",
+    whyItMatters: "The 30th anniversary festival marks a tradition begun in 1996 celebrating the endangered cranes' return to their winter habitat at Aransas National Wildlife Refuge. The organizer partners with the International Crane Foundation and now advertises 2027 excursion tickets. Guided field trips and boat outings require separate planning; some are not at the Civic Center.",
     quickFacts: [
       {
         label: "Confirmed edition",
@@ -285,11 +285,11 @@ const records: FestivalEventRecord[] = [
     planningSections: [
       {
         title: "Reserve the particular field trip before accommodation",
-        body: "Boat outings, nature tours and photography workshops have different departure points, group capacities, prices and weather risks. Select and book the specific outing through the festival program before deciding which mornings are free."
+        body: "The February 25 program includes a morning Fennessey Ranch bus outing, island birding, kayak excursions and two crane boat departures. Friday February 26 adds a King Ranch tour, Lamar Peninsula birding and photography workshops. Tickets are on sale; choose each departure separately and verify availability, meeting point and cancellation terms."
       },
       {
         title: "Do not assume the speakers' schedule is the boat schedule",
-        body: "The Civic Center hosts festival activity, while excursions travel to coastal and wetland habitats. The official 2027 page currently retains some 2026 check-in hours as historical information; do not apply those hours to 2027."
+        body: "The explicitly dated 2027 schedule lists Civic Center registration Thursday 8 a.m.–5 p.m., Friday and Saturday 7 a.m.–5 p.m., Sunday 7:30–10:30 a.m. The exhibit fair is Thursday noon–5 p.m. and Friday/Saturday 9 a.m.–5 p.m. The Thursday public lecture at the UT Marine Science Institute Patton Center is free, first come, first seated; it is not a reserved boat ticket."
       },
       {
         title: "Prepare for responsible wildlife watching",
@@ -318,6 +318,8 @@ const records: FestivalEventRecord[] = [
       }
     ],
     sources: [
+      { label: "Official February 25–28, 2027 schedule", url: "https://www.portaransas.org/whooping-crane-festival/the-2027-festival/schedule/" },
+      { label: "Official excursion ticket page", url: "https://www.portaransas.org/whooping-crane-festival/the-2027-festival/buy-tickets/" },
       {
         label: "Port Aransas Tourism Bureau 2027 festival",
         url: "https://www.portaransas.org/whooping-crane-festival/the-2027-festival/"
