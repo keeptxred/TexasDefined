@@ -43,7 +43,7 @@ function TexasIndustriesPage() {
                 <a href="/made-in-texas" className="block text-primary">Browse Made in Texas companies →</a>
                 <a href="/browse/counties" className="block text-primary">Browse all 254 counties →</a>
                 <a href="/compare-texas-cities" className="block text-primary">Compare Texas cities →</a>
-                <a href="/moving-to-texas?companyMove=employer#corporate-relocation" className="block text-primary">Corporate relocation & workforce planning →</a>
+                <a href="/moving-to-texas?companyMove=employer#corporate-relocation" className="block text-primary" rel="nofollow">Corporate relocation & workforce planning →</a>
               </div>
             </div>
             <div className="grid gap-px border border-border bg-border md:grid-cols-2">
