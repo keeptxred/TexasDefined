@@ -14,6 +14,17 @@ type PendingCelebration = {
 
 const editorConfirmed: ConfirmedCelebration[] = [
   {
+    "slug": "mardi-gras-on-the-sabine-orange",
+    "name": "Mardi Gras on the Sabine",
+    "city": "Orange",
+    "region": "Southeast Texas",
+    "date": "January 30, 2027 · 2–10 p.m.",
+    "kind": "Free riverfront community festival",
+    "family": "3 p.m. second line and children's parade; 6 p.m. main parade",
+    "description": "The city confirms free admission and concerts at the Riverfront Boardwalk & Pavilion, with afternoon family activities and the Krewe of Krewes procession.",
+    "official": "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine"
+  },
+  {
     "slug": "beaumont-pardi-gras",
     "name": "Beaumont Pardi Gras",
     "city": "Beaumont",
@@ -76,7 +87,7 @@ const editorConfirmed: ConfirmedCelebration[] = [
     "date": "February 5–7, 2027",
     "kind": "Reintroduced Cajun-coast festival",
     "family": "Designed as multigenerational",
-    "description": "Port Arthur's new visitor-bureau-led downtown celebration returns Mardi Gras to the city with parades, food, music and family activities.",
+    "description": "The published program has Friday 6:15 p.m. and Saturday 6 p.m. parades, plus Sunday 2 p.m. children’s and 3 p.m. motor parades. Gate tickets include concerts.",
     "official": "https://visitportarthurtx.com/mardi-gras/schedule/"
   },
   {
@@ -116,14 +127,7 @@ const editorConfirmed: ConfirmedCelebration[] = [
   }
 ];
 const editorPending: PendingCelebration[] = [
-  {
-    "guide": "/event/mardi-gras-on-the-sabine-orange",
-    "name": "Mardi Gras on the Sabine",
-    "city": "Orange",
-    "status": "2027 date not yet announced",
-    "detail": "Orange's city website explicitly says it will update 2027 information later. Its 2026 event had a children's parade, second line and free riverfront festivities.",
-    "url": "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine"
-  },
+
   {
     "guide": "/event/mardi-gras-southeast-texas-beaumont",
     "name": "Mardi Gras of Southeast Texas",
