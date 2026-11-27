@@ -27,6 +27,7 @@ export const majorEventSchemaEnrichmentBatch17: MajorEventSchemaEnrichment[] = [
   {
     slug: "uil-spirit-state-championships",
     sources: [
+      { label: "UIL 2027 spectator tickets, pending maps and webcast", url: "https://www.uiltexas.org/spirit/spectator-information" },
       { label: "UIL Spirit State Championships official page", url: "https://www.uiltexas.org/spirit/spirit-state-championships" },
       { label: "UIL Spirit State Championships schedule", url: "https://www.uiltexas.org/spirit/spirit-state-championships/schedule" },
     ],
