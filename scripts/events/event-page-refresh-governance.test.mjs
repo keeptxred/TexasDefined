@@ -441,8 +441,14 @@ test('second organizer-review tranche preserves current 2027 dates and historica
     ['src/data/major-event-expanded-authority-tranche29.server.ts', 'gruene-music-wine-festival'],
   ];
   for (const [file, slug] of cases) {
-    assert.match(record(file, slug), /sourceCheckedAt: "2026-11-15"/,
-      'Actual editorial source review missing from ' + slug);
+    // A later substantive source review must not fail a historical baseline.
+    // Read only the actual record's date, never a later index row.
+    const actual = record(file, slug).match(/sourceCheckedAt: "([^"]+)"/)?.[1];
+    assert.ok(actual && /^\d{4}-\d{2}-\d{2}$/.test(actual) &&
+      Number.isFinite(Date.parse(actual)) &&
+      new Date(Date.parse(actual)).toISOString().slice(0, 10) === actual &&
+      actual >= '2026-11-15' && actual <= new Date().toISOString().slice(0, 10),
+      'Actual editorial source review missing or invalid for ' + slug);
   }
   const balloon = record(cases[0][0], 'great-texas-balloon-race');
   assert.match(balloon, /startDate: "2027-07-22"/);
