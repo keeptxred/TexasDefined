@@ -118,7 +118,7 @@ try {
           await region.focus();
           assert.equal(await region.evaluate(el => el === document.activeElement), true, 'Tax table keyboard focus');
           const rates = await rows.locator('td:nth-child(2)').allTextContents();
-          assert.ok(rates.some(rate => /\\d+\\.\\d{6}/.test(rate)), 'No numeric county rate');
+          assert.ok(rates.some(rate => /[0-9]+\.[0-9]{6}/.test(rate)), 'No numeric county rate');
           report.taxTable = { countyRows: count, headers, rates, focusable: true };
         }
         if (target.path === '/county/brazoria' && !mode.javaScriptEnabled && process.env.GITHUB_EVENT_NAME !== 'pull_request') {
