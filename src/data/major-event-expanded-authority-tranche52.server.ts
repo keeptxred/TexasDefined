@@ -631,46 +631,46 @@ const records: MajorEventAuthorityRecord[] = [
     whyItMatters: "Orange’s free riverfront Carnival combines a participatory second line, children’s parade, Cajun food and brass-band music with the chamber’s 23rd annual Krewe of Krewes procession. The confirmed 2027 program takes place January 30, rather than repeating February 7, 2026 (the completed previous festival).",
     quickFacts: [
       {
-        "label": "Confirmed festival",
-        "value": "Saturday, January 30, 2027 · 2–10 p.m."
+        label: "Confirmed festival",
+        value: "Saturday, January 30, 2027 · 2–10 p.m."
       },
       {
-        "label": "Admission",
-        "value": "Free festival and concerts; food and other purchases separate"
+        label: "Admission",
+        value: "Free festival and concerts; food and other purchases separate"
       },
       {
-        "label": "Location",
-        "value": "Riverfront Boardwalk & Pavilion, 601 W. Division Street"
+        label: "Location",
+        value: "Riverfront Boardwalk & Pavilion, 601 W. Division Street"
       },
       {
-        "label": "Parade starts",
-        "value": "3 p.m. second line and Krewe de Kids; 6 p.m. Krewe of Krewes"
+        label: "Parade starts",
+        value: "3 p.m. second line and Krewe de Kids; 6 p.m. Krewe of Krewes"
       },
       {
-        "label": "Venue restrictions",
-        "value": "No pets or coolers at the Riverfront Pavilion"
+        label: "Venue restrictions",
+        value: "No pets or coolers at the Riverfront Pavilion"
       }
     ],
     planningSections: [
       {
-        "title": "Choose the afternoon or evening program",
-        "body": "The city’s dated January 30 program opens at 2 p.m. Children’s activities continue until 6 p.m.; vendors operate until 10 p.m. The Big Fun Brass Band plays from 4–6 p.m. An additional Zydecajun performance follows the main parade, but the artist has not been announced."
+        title: "Choose the afternoon or evening program",
+        body: "The city’s dated January 30 program opens at 2 p.m. Children’s activities continue until 6 p.m.; vendors operate until 10 p.m. The Big Fun Brass Band plays from 4–6 p.m. An additional Zydecajun performance follows the main parade, but the artist has not been announced."
       },
       {
-        "title": "Join the second line or watch the children’s parade",
-        "body": "The 3 p.m. procession combines a second line with the Krewe de Kids. Families can register children to walk or use decorated wagons or strollers; the registration form is still forthcoming. The city FAQ contains an inconsistent January 20 reference, so use the dated January 30 program and reconfirm participation details before leaving."
+        title: "Join the second line or watch the children’s parade",
+        body: "The 3 p.m. procession combines a second line with the Krewe de Kids. Families can register children to walk or use decorated wagons or strollers; the registration form is still forthcoming. The city FAQ contains an inconsistent January 20 reference, so use the dated January 30 program and reconfirm participation details before leaving."
       },
       {
-        "title": "Watch the main parade along the city route",
-        "body": "The chamber’s 6 p.m. parade begins at First Street and Front Avenue, turns onto Fifth Street and Division Street past the pavilion, then continues along Tenth Street and Green Avenue. Check street closures and accessible drop-offs before choosing a viewing point."
+        title: "Watch the main parade along the city route",
+        body: "The chamber’s 6 p.m. parade begins at First Street and Front Avenue, turns onto Fifth Street and Division Street past the pavilion, then continues along Tenth Street and Green Avenue. Check street closures and accessible drop-offs before choosing a viewing point."
       },
       {
-        "title": "Plan for a free riverfront festival",
-        "body": "No admission ticket is required, including for concerts. Bring money for optional vendor purchases. The city prohibits pets and coolers at the pavilion; ask the organizer about accessibility and any weather changes."
+        title: "Plan for a free riverfront festival",
+        body: "No admission ticket is required, including for concerts. Bring money for optional vendor purchases. The city prohibits pets and coolers at the pavilion; ask the organizer about accessibility and any weather changes."
       },
       {
-        "title": "Make time for Orange beyond the parade",
-        "body": "Build a separate museum or historic downtown stop around the riverfront program. Confirm venue hours independently and avoid assuming streets near the pavilion remain open to vehicles."
+        title: "Make time for Orange beyond the parade",
+        body: "Build a separate museum or historic downtown stop around the riverfront program. Confirm venue hours independently and avoid assuming streets near the pavilion remain open to vehicles."
       }
     ],
     relatedLinks: [
