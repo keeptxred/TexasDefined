@@ -1,0 +1,15 @@
+import { FISH_AUTHORITY_NOTES, FISH_AUTHORITY_SOURCES } from "@/data/fishing/species-authority-notes";
+
+export function FishAuthorityNote({ slug }: { slug: string }) {
+  const note = FISH_AUTHORITY_NOTES[slug];
+  if (!note) return null;
+  const source = FISH_AUTHORITY_SOURCES[note.source];
+  return <section className="border-b border-border py-10" aria-labelledby="texas-fish-practical-guide">
+    <h2 id="texas-fish-practical-guide" className="font-display text-3xl">Texas fishing: where to start</h2>
+    <p className="mt-4 max-w-3xl text-base leading-7 text-foreground">{note.guidance}</p>
+    <p className="mt-3 text-sm"><a className="underline text-primary" href={source.url} target="_blank" rel="noopener noreferrer">TPWD: {source.label}</a></p>
+    {note.lakes.length > 0 && <div className="mt-5"><h3 className="font-semibold">Related waterbody planning guides</h3><p className="mt-2 text-sm text-muted-foreground">Use these guides for access and local conditions; a historical catch or a nearby stocking site is not a current fishery rating.</p><ul className="mt-3 flex flex-wrap gap-4">{note.lakes.map(lake => <li key={lake}><a className="underline text-primary" href={"/fishing/lakes/" + lake}>{lake.replaceAll("-", " ").replace(/\b\w/g, c => c.toUpperCase())}</a></li>)}</ul></div>}
+    {note.related.length > 0 && <div className="mt-5"><h3 className="font-semibold">Related identification and fishing guides</h3><ul className="mt-3 flex flex-wrap gap-4">{note.related.map(fish => <li key={fish}><a className="underline text-primary" href={"/fishing/species/" + fish}>{fish.replaceAll("-", " ").replace(/\b\w/g, c => c.toUpperCase())}</a></li>)}</ul></div>}
+    <p className="mt-5 text-sm leading-6 text-muted-foreground">Before keeping fish, check the <a className="underline text-primary" href={FISH_AUTHORITY_SOURCES.limits.url}>current freshwater limits</a> and <a className="underline text-primary" href={FISH_AUTHORITY_SOURCES.advisories.url}>fish consumption advisories</a> for your waterbody.</p>
+  </section>;
+}
